@@ -24,6 +24,7 @@ graph TD
   S012[012 CI]
   S013[013 404]
   S014[014 Diseño insights — no creada]
+  S015[015 Sync a Sanity por API]
 
   C000 --> S001
   C000 --> S005
@@ -47,6 +48,9 @@ graph TD
   S011 -. producción .-> S009
   S011 -. cuerpos .-> S014
   S010 --> S014
+  S006 --> S015
+  S015 -. cierra criterio 7 .-> S006
+  S011 -. re-ejecutar .-> S015
 ```
 
 Bloqueos externos (STATUS.md §7): **B1 entorno** bloquea todo lo verificable; **B2/B3/B4/B6**
@@ -127,6 +131,11 @@ Una sesión = lo que cabe en un contexto sin perder coherencia. Cada spec termin
 **Resultado verificable:** `CONTENT_SOURCE=local` sigue igual (build, tests, 27/27); con credenciales, la home renderiza datos de Sanity.
 **Necesito antes:** proyecto Sanity creado, `projectId`, dataset y token de lectura en `.env.local` (para el criterio 7; el resto no lo necesita).
 
+### Sesión 6b — Poblar el CMS: 015
+
+**Resultado verificable:** `npm run content:sync -- --apply` deja el dataset idéntico a `content/local.ts` (9 documentos); con `CONTENT_SOURCE=sanity` la home renderiza lo mismo que en `local` y 27/27. Cierra el criterio 7 de 006. Se re-ejecuta tras 011.
+**Necesito antes:** `SANITY_API_WRITE_TOKEN` (permiso Editor) en `.env.local`.
+
 ### Sesión 7 — Deploy en preview: 009 (criterios 1–4)
 
 **Resultado verificable:** URL `*.vercel.app` con 27/27 y rutas de 007 respondiendo.
@@ -163,6 +172,7 @@ de `#insights` a `/insights` y `/insights/[slug]`, cargar cuerpos (011 formato 5
 | [011](specs/011-contenido-real.md)           | Contenido real                     | borrador | **sí, íntegramente**             |
 | [012](specs/012-ci.md)                       | CI GitHub Actions                  | borrador | no                               |
 | [013](specs/013-not-found.md)                | Página 404                         | borrador | sí (copy)                        |
+| [015](specs/015-sincronizacion-sanity.md)    | Sincronización a Sanity por API    | borrador | parcial (token de escritura)     |
 
 Specs añadidas respecto al mínimo pedido: 012 (CI) y 013 (404). Motivo: 009 no debería
 desplegar sin una puerta que corra fuera de la máquina afectada por iCloud, y 010 introduce
