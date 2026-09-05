@@ -1,6 +1,6 @@
 # 004 — Conformidad de constitución
 
-Estado: aprobada
+Estado: verificada
 Depende de: [000, 001, 003]
 Bloqueada por dueño: no — punto 1 confirmado por el dueño 2026-09-05
 
@@ -59,4 +59,22 @@ Viewports: 1440 (criterio 2); 390/834/1440 vía 003.
 
 ## Hallazgos
 
-(vacío)
+- 2026-09-05 — Primera pasada de verificación dio "Times 700" y el audit falló: un `next-server` de la verificación de 003 seguía escuchando en :3000 sirviendo el build anterior (`pkill -f "next start"` no mata el proceso hijo, que se llama `next-server`). Corregido matando por puerto (`kill $(lsof -t -iTCP:3000 -sTCP:LISTEN)`) y repitiendo. Las specs siguientes usan ese comando en lugar de `kill %1`.
+- El CSS servido contiene la utilidad `.italic{font-style:italic}` aunque ningún componente la usa (grep vacío en `app/ components/ content/ lib/`). Tailwind v4 detecta la palabra en archivos Markdown de `docs/`. Es una regla inerte de 26 bytes; no hay itálica sintetizada. Se anota por si conviene restringir `@source` en el futuro (fuera de esta spec).
+- Archivos de fuente en el build: 8 → 5 `.woff2`; preloads: 3 → 2. La instancia estática `wght@300` de Newsreader pesa 29.9 KB (latin) frente a los 64.5 KB de la variable.
+
+## Evidencia de verificación (2026-09-05)
+
+```
+$ @font-face servidos (app/layout css)      Newsreader: font-weight 300, font-style normal (x3 subsets)
+                                            Instrument Sans: 400 (x2), 500 (x1), font-style normal
+                                            @font-face con "italic": 0                     criterio 1 PASA
+$ getComputedStyle @1440                    h1: Newsreader 300 · body: Instrument Sans 400 · .eyebrow: Instrument Sans 500
+                                            document.fonts loaded: Newsreader 300 normal | Instrument Sans 400 | 500   criterio 2 PASA
+$ <link rel=preload as=font>                26d0ba92…-s.p.woff2, ebf12d54…-s.p.woff2 (2, ninguno itálico)   criterio 3 PASA
+$ grep -c breakpoint-xs app/globals.css     0 · grep -rn "xs:" components app → 0            criterio 4 PASA
+$ grep -cE "cd web|git init" README.md      0 · "Structure" lista tooling, scripts/ y docs/   criterio 5 PASA
+$ npm run audit:responsive                  27/27 celdas CUMPLE · 12/12 checks                criterio 6 PASA
+$ npm run build                             ✓ Compiled successfully, warn count 0            criterio 7 PASA
+$ tsc / lint / format:check / vitest        ok / exit 0 / All matched / 2 passed
+```

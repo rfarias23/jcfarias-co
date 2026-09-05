@@ -5,13 +5,16 @@ import "./globals.css";
 
 const newsreader = Newsreader({
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  weight: ["300"],
+  style: ["normal"],
   display: "swap",
   variable: "--font-newsreader",
 });
 
 const instrument = Instrument_Sans({
   subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal"],
   display: "swap",
   variable: "--font-instrument",
 });

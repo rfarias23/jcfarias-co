@@ -304,13 +304,14 @@ Stats (18 · 4 · 40+ · USD 1.2B): **no bloqueado**, ya verificado por el dueñ
 
 ## 9. Fase 3 — bitácora de ejecución
 
-| Fecha      | Spec     | Commit        | Resultado                                                                                                                          |
-| ---------- | -------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-09-05 | Sesión 0 | —             | Proyecto movido a `~/dev/JCFarias`; `node_modules` reinstalado; 0 archivos dataless; `tsc` 1.8 s en sitio. B1 cerrado.             |
-| 2026-09-05 | 005 (A)  | `5fb27a7`     | Trabajo heredado + documentos de auditoría committeados.                                                                           |
-| 2026-09-05 | 002      | `2119d0e`     | Tooling autorizado; harness Vitest committeado; `format:check` verde. **verificada**                                               |
-| 2026-09-05 | 001      | `3264a48`     | `next` 15.5.2 → 15.5.25 (CVE-2025-66478 cerrado); tsc/build limpios; 40/40 en auditoría responsiva. **verificada**                 |
-| 2026-09-05 | 005 (B)  | (este commit) | `git push origin main` fda04d2..3264a48, sin force; `ls-remote` = HEAD; repo PUBLIC; working tree limpio. **verificada**           |
-| 2026-09-05 | 003      | (este commit) | `scripts/responsive-audit.mjs` + `npm run audit:responsive`; `playwright-core` devDep; 27/27 celdas y 12/12 checks. **verificada** |
+| Fecha      | Spec     | Commit        | Resultado                                                                                                                                                           |
+| ---------- | -------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-09-05 | Sesión 0 | —             | Proyecto movido a `~/dev/JCFarias`; `node_modules` reinstalado; 0 archivos dataless; `tsc` 1.8 s en sitio. B1 cerrado.                                              |
+| 2026-09-05 | 005 (A)  | `5fb27a7`     | Trabajo heredado + documentos de auditoría committeados.                                                                                                            |
+| 2026-09-05 | 002      | `2119d0e`     | Tooling autorizado; harness Vitest committeado; `format:check` verde. **verificada**                                                                                |
+| 2026-09-05 | 001      | `3264a48`     | `next` 15.5.2 → 15.5.25 (CVE-2025-66478 cerrado); tsc/build limpios; 40/40 en auditoría responsiva. **verificada**                                                  |
+| 2026-09-05 | 005 (B)  | (este commit) | `git push origin main` fda04d2..3264a48, sin force; `ls-remote` = HEAD; repo PUBLIC; working tree limpio. **verificada**                                            |
+| 2026-09-05 | 003      | (este commit) | `scripts/responsive-audit.mjs` + `npm run audit:responsive`; `playwright-core` devDep; 27/27 celdas y 12/12 checks. **verificada**                                  |
+| 2026-09-05 | 004      | (este commit) | Fuentes embebidas: Newsreader 300 normal, Instrument Sans 400/500 normal, 0 itálicas, 5 woff2 (antes 8); token `xs` eliminado; README al día. 27/27. **verificada** |
 
 Pendiente del dueño (no bloqueante): `sudo chown -R 501:20 ~/.npm` para eliminar el workaround `--cache`.

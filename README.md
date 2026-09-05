@@ -25,11 +25,19 @@ Node 20+.
     content/
       site.ts             nav, practice areas, stats, offices
       local.ts            transactions + insights (CMS stand-in)
+      local.test.ts       characterisation tests on the record
     lib/
       content.ts          the one seam to the CMS
       types.ts  cn.ts
-    sanity/               schemas + GROQ queries, not yet imported
+    sanity/               schemas; GROQ queries documented in sanity/README.md
+    scripts/
+      responsive-audit.mjs  27-cell check of the table below (npm run audit:responsive)
     public/images/        hero plate, portrait, logo
+    docs/
+      STATUS.md           audit of the real state of the project
+      PLAN.md             execution order of the specs, grouped in sessions
+      specs/              one spec per unit of work; nothing ships without one
+    eslint.config.mjs  .prettierrc  vitest.config.mts  vitest.setup.ts
 
 ## Design tokens
 
@@ -99,8 +107,9 @@ Touch targets are 44px minimum (burger, close, menu links, mail button).
 `content/local.ts` today and switches on `CONTENT_SOURCE`. Every consumer is a
 server component that awaits `getTransactions()` / `getInsights()`, so moving to
 Sanity is: install `next-sanity`, fill `.env.local`, implement the two
-`source === "sanity"` branches. No component changes. Schemas and GROQ queries
-are already written in `sanity/`.
+`source === "sanity"` branches. No component changes. Schemas are already
+written in `sanity/schemas/`; the GROQ queries are documented in
+`sanity/README.md`.
 
 Prose that is design (hero, position statement, About) lives in the components
 on purpose — it is not editorial content and should not be CMS-editable.
@@ -126,11 +135,13 @@ on purpose — it is not editorial content and should not be CMS-editable.
 Vercel, framework preset Next.js, no build config needed. Add
 `CONTENT_SOURCE=local` as an env var until the CMS is live.
 
-## First push
+## Repository and workflow
 
-    cd web
-    git init -b main
-    git remote add origin git@github.com:rfarias23/jcfarias-co.git
-    git add .
-    git commit -m "J.C. Farias & Co. — landing page"
-    git push -u origin main
+The repository lives at `https://github.com/rfarias23/jcfarias-co` (remote
+`origin`, HTTPS, branch `main`). Work is spec-driven: every change belongs to
+a spec in `docs/specs/`, one commit per spec (`spec-NNN: <title>`), never a
+force push. See `docs/PLAN.md` for the order of execution and
+`docs/STATUS.md` for the current state.
+
+    npm run typecheck && npm run lint && npm run format:check && npm run test:run && npm run build
+    npm run start & npm run audit:responsive   # 27/27 cells must pass
