@@ -10,7 +10,7 @@ Ciclo de estados: `borrador` → `aprobada` (solo el dueño) → `implementada` 
 | [000](000-constitution.md)             | Constitución                       | aprobada                                |
 | [001](001-build-limpio.md)             | Build limpio                       | verificada                              |
 | [002](002-tooling.md)                  | Tooling: ESLint, Prettier y Vitest | verificada                              |
-| [003](003-conformidad-responsiva.md)   | Conformidad responsiva             | aprobada                                |
+| [003](003-conformidad-responsiva.md)   | Conformidad responsiva             | verificada                              |
 | [004](004-conformidad-constitucion.md) | Conformidad de constitución        | aprobada                                |
 | [005](005-git.md)                      | Git: regularizar y empujar         | verificada                              |
 | [006](006-integracion-sanity.md)       | Integración Sanity                 | borrador (espera credenciales Sanity)   |

@@ -1,6 +1,6 @@
 # 003 — Conformidad responsiva
 
-Estado: aprobada
+Estado: verificada
 Depende de: [000, 001]
 Bloqueada por dueño: no — decidido 2026-09-05: Opción A, `playwright-core` como devDependency
 
@@ -64,4 +64,19 @@ Viewports: 390×844, 834×1112, 1440×900 (deviceScaleFactor 1).
 
 ## Hallazgos
 
-(vacío)
+- 2026-09-05 — El script imprime, además de las 27 celdas, 12 "checks adicionales" (overflow de página, touch targets, crédito, Escape, reduced-motion) que cubren los criterios 1, 11, 12 y 13. Ambos contadores deben ser totales para exit 0.
+- El script depende de Google Chrome instalado en la ruta estándar de macOS (`CHROME_PATH` para otra ruta). En CI (012) no se ejecuta; es una herramienta local.
+
+## Evidencia de verificación (2026-09-05)
+
+```
+$ npm run build && npm run start
+$ npm run audit:responsive
+── 390×844 (mobile) ──     9/9 celdas CUMPLE · overflow, touch (44/44/59/44), crédito, Escape CUMPLE
+── 834×1112 (tablet) ──    9/9 celdas CUMPLE · overflow, touch (44/44/84/44), crédito, Escape CUMPLE
+── 1440×900 (desktop) ──   9/9 celdas CUMPLE (hero ratio 2.077; transactions 1328/1328 sin hint) · overflow, touch, crédito CUMPLE
+── prefers-reduced-motion ── scroll-behavior=auto, transitions 0.00001s CUMPLE
+27/27 celdas CUMPLE · 12/12 checks adicionales CUMPLE          exit=0     criterios 1–14 PASAN
+$ npm run lint / format:check / tsc                              exit 0 / "All matched files" / exit 0
+$ dependencies                                                   [ next, react, react-dom ]  (playwright-core en devDependencies)
+```
