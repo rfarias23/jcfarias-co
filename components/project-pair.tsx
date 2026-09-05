@@ -17,7 +17,7 @@ const frames: Frame[] = [
   {
     id: "project-b",
     src: "/images/project-b.jpg",
-    alt: "Precast concrete facade grid in raking light",
+    alt: "Facade of an office building in afternoon light",
   },
 ];
 

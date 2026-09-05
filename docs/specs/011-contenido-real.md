@@ -124,7 +124,7 @@ Viewports: 390/834/1440.
 - **H2 — Project A es horizontal.** `project-a.jpg` (iStock 2212732389, licencia estándar confirmada por el dueño) mide 2309 × 1299, no vertical ni cuadrada. El frame recorta con `object-cover` al centro (los tres muelles); el dueño aceptó el recorte. Se re-encodeó a calidad 76 (675 KB).
 - **H3 — Project B cumple.** `project-b.jpg` (iStock 1501184213, licencia estándar) cuadrada, reducida de 3414 a 2000 px, calidad 78 (918 KB; textura fina que comprime mal; Next sirve derivados de 49–88 KB).
 - **H4 — El retrato de About sustituye al logotipo "JCF LIM".** `perfil-jcf.png` (800 × 800, logotipo) → `perfil-jcf.jpg` (1280 × 853, foto propia entregada por el dueño). La spec no fijaba mínimo para About; el marco 4:5 recorta los laterales y conserva la cara. En pantallas retina grandes puede verse ligeramente blanda. Si el dueño tiene un original mayor, se sustituye sin tocar código.
-- **H5 — `alt` propuestos por el ejecutor, no entregados.** "Loading docks of a logistics facility under a clear sky" y "Precast concrete facade grid in raking light". Sin ubicación porque son fotos de archivo. Pendiente de que el dueño los confirme o corrija.
+- **H5 — `alt` confirmados por el dueño el 2026-09-05.** Frame A: "Loading docks of a logistics facility under a clear sky" (aceptado tal cual). Frame B: el dueño pidió describirlo como edificio de oficinas; queda "Facade of an office building in afternoon light". Sin ubicación porque son fotos de archivo.
 - **H6 — `public/images/logo-primario.png` (1.5 MB) no se referencia en ningún componente.** Fuera de alcance; se anota para decidir si se borra.
 
 ## Evidencia parcial (2026-09-05, entrega 2)
