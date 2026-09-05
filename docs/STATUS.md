@@ -316,5 +316,6 @@ Stats (18 · 4 · 40+ · USD 1.2B): **no bloqueado**, ya verificado por el dueñ
 | 2026-09-05 | 012      | `699ed1d` + (este commit) | `.github/workflows/ci.yml` verde en main (run 33954514905); prueba negativa PR #1 falló en typecheck (run 33954579831); actions v5. **verificada**                                          |
 | 2026-09-05 | 010      | (este commit)             | `/insights` e `/insights/[slug]` (3 SSG) con metadata y `noindex`; `getInsight`; tipo `Insight` con `publishedAt`/`dek`/`body`; 7 tests. Markup placeholder hasta 014. **verificada**       |
 | 2026-09-05 | 007      | (este commit)             | `robots.txt`, `sitemap.xml` (solo `/`), imagen OG 1200×630 en ink con wordmark serif (20.9 KB), `icon` 32 px (418 B) y `apple-icon` 180 px, canonical y twitter card. 27/27. **verificada** |
+| 2026-09-05 | 013      | (este commit)             | `app/not-found.tsx` con header, footer y primitivas; copy aprobado; 404 en `/no-existe` y `/insights/no-existe`; enlace 44 px; `noindex`. 27/27 en home. **verificada**                     |
 
 Pendiente del dueño (no bloqueante): `sudo chown -R 501:20 ~/.npm` para eliminar el workaround `--cache`.

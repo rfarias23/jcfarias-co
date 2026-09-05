@@ -1,6 +1,6 @@
 # 013 — Página 404 en el chrome del sitio
 
-Estado: aprobada
+Estado: verificada
 Depende de: [000, 001, 010]
 Bloqueada por dueño: no — copy propuesto aprobado por el dueño 2026-09-05
 
@@ -59,4 +59,22 @@ Viewports: 390×844, 834×1112, 1440×900.
 
 ## Hallazgos
 
-(vacío)
+- 2026-09-05 — `next build` falló con la regla `@next/next/no-html-link-for-pages` al enlazar `/` con `<a>`. Se usa `<Link href="/">` de `next/link`. El archivo sigue siendo server component (sin `"use client"`); `next/link` es el patrón que ya anticipaba `vitest.setup.ts`. No se añadió `eslint-disable`.
+- El botón "Back to home" combina las clases del botón Contact del header con `inline-flex min-h-11 items-center self-start` (el mismo patrón del botón de mail del footer), porque fuera de la barra de 76 px el botón solo mediría ~36 px y fallaría el criterio 3. Sin clases nuevas.
+- Next añade su propio `<meta name="robots" content="noindex">` a la 404 además del `noindex, nofollow` de esta spec; ambos coexisten sin conflicto.
+- Los enlaces del header son anclas (`#practice`…) y desde `/no-existe` o `/insights/*` apuntan a `/no-existe#practice`. Ya ocurre en las rutas de 010; se resuelve cuando 014 cablee la navegación entre páginas. Se anota, no se corrige aquí.
+
+## Evidencia de verificación (2026-09-05)
+
+```
+$ curl /no-existe                 HTTP 404 · contiene <header, <footer id="contact", "This page is not on the record.",
+                                  "The address may have changed or never existed.", "Back to home"          criterio 1 PASA
+$ curl /insights/no-existe        HTTP 404 · misma página                                                    criterio 2 PASA
+$ Chrome 390/834/1440             status 404 · scrollWidth = viewport · burger en 390/834, nav en 1440 ·
+                                  enlace "Back to home" 44 px de alto en los tres                             criterio 3 PASA
+$ getComputedStyle @1440          h1: Newsreader 300 · main p.text-body: Instrument Sans 400                  criterio 4 PASA
+$ grep -rn '"use client"'         components/site-header.tsx:1 (única)                                       criterio 5 PASA
+$ <title>/<meta robots>           "Not found · J.C. Farias & Co." · noindex, nofollow                         criterio 6 PASA
+$ npm run build                   ✓ Compiled · /_not-found 142 B (○ estática) · warn count 0                 criterio 7 PASA
+$ audit:responsive (home)         27/27 · 12/12 · tsc / lint / format ok
+```
