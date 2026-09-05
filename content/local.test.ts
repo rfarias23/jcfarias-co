@@ -1,5 +1,13 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { getInsights, getTransactions } from "@/lib/content";
+
+beforeEach(() => {
+  vi.stubEnv("CONTENT_SOURCE", "local");
+});
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
 
 describe("the transaction record", () => {
   it("gives every row all five columns", async () => {

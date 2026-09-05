@@ -46,7 +46,7 @@ revisa contra él antes de aprobar cualquier spec.
 | `eslint`, `eslint-config-next`, `eslint-config-prettier`, `@eslint/eslintrc`, `prettier`                                | 002                        |
 | `vitest`, `@vitejs/plugin-react`, `vite-tsconfig-paths`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom` | 002                        |
 | `playwright-core` (solo devDependency; usa el Chrome local, no descarga navegadores)                                    | 003                        |
-| `next-sanity` (dependencia de runtime, única excepción a la línea anterior)                                             | 006                        |
+| `@sanity/client` (dependencia de runtime, única excepción a la línea anterior; sustituye a `next-sanity`, ver 006 H1)   | 006                        |
 
 - Cambiar la versión de `next`, `react` o `react-dom` es un cambio de dependencia y requiere spec.
 

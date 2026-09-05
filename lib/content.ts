@@ -1,46 +1,44 @@
 import { transactions as localTransactions, insights as localInsights } from "@/content/local";
+import { getClient } from "@/lib/sanity-client";
 import type { Insight, Transaction } from "@/lib/types";
+import { INSIGHT_BY_SLUG_QUERY, INSIGHTS_QUERY, TRANSACTIONS_QUERY } from "@/sanity/queries";
 
 /**
  * Single seam between the site and its content source.
  *
- * Today both functions return the hand-authored arrays in content/local.ts.
- * When the Sanity dataset exists, flip CONTENT_SOURCE=sanity and implement the
- * branches below — no component changes required, because every consumer is a
- * server component that awaits these two functions.
- *
- * Sanity implementation sketch:
- *
- *   import { createClient } from "next-sanity";
- *   const client = createClient({
- *     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
- *     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
- *     apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION!,
- *     useCdn: true,
- *   });
- *   return client.fetch(TRANSACTIONS_QUERY, {}, { next: { revalidate: 300 } });
- *
- * GROQ queries and document schemas live in /sanity.
+ * CONTENT_SOURCE=local (default) returns the hand-authored arrays in
+ * content/local.ts. CONTENT_SOURCE=sanity reads the CMS through the lazy client
+ * in lib/sanity-client.ts with a five-minute revalidation. Every consumer is a
+ * server component that awaits these functions, so no component changes when
+ * the source flips. GROQ queries and document schemas live in /sanity.
  */
-const source = process.env.CONTENT_SOURCE ?? "local";
+const REVALIDATE_SECONDS = 300;
+
+function contentSource(): "local" | "sanity" {
+  return process.env.CONTENT_SOURCE === "sanity" ? "sanity" : "local";
+}
+
+function fetchFromSanity<T>(query: string, params: Record<string, string> = {}): Promise<T> {
+  return getClient().fetch<T>(query, params, { next: { revalidate: REVALIDATE_SECONDS } });
+}
 
 export async function getTransactions(): Promise<Transaction[]> {
-  if (source === "sanity") {
-    throw new Error("Sanity transactions source not wired yet — see /sanity/README.md");
+  if (contentSource() === "sanity") {
+    return fetchFromSanity<Transaction[]>(TRANSACTIONS_QUERY);
   }
   return localTransactions;
 }
 
 export async function getInsights(): Promise<Insight[]> {
-  if (source === "sanity") {
-    throw new Error("Sanity insights source not wired yet — see /sanity/README.md");
+  if (contentSource() === "sanity") {
+    return fetchFromSanity<Insight[]>(INSIGHTS_QUERY);
   }
   return localInsights;
 }
 
 export async function getInsight(slug: string): Promise<Insight | null> {
-  if (source === "sanity") {
-    throw new Error("Sanity insight source not wired yet — see /sanity/README.md");
+  if (contentSource() === "sanity") {
+    return fetchFromSanity<Insight | null>(INSIGHT_BY_SLUG_QUERY, { slug });
   }
   return localInsights.find((note) => note.slug === slug) ?? null;
 }

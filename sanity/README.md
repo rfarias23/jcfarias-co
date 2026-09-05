@@ -1,16 +1,22 @@
 # CMS layer (Sanity)
 
-Nothing here is imported by the app yet. The site reads \`content/local.ts\` through
-\`lib/content.ts\`; these files are the schema and query contract to build against
-when the dataset is created.
+The site reads content through the single seam \`lib/content.ts\`. With
+\`CONTENT_SOURCE=local\` (the default) it returns \`content/local.ts\`; with
+\`CONTENT_SOURCE=sanity\` it queries the dataset through the lazy client in
+\`lib/sanity-client.ts\` (\`@sanity/client\`, five-minute revalidation). The
+queries below live in \`queries.ts\` and are the contract with the dataset.
 
 ## Wiring it up
 
-1. \`npm i next-sanity\` and create a project at sanity.io.
-2. Fill \`.env.local\` from \`.env.example\` and set \`CONTENT_SOURCE=sanity\`.
-3. Add \`schemas/transaction.ts\` and \`schemas/insight.ts\` to the Studio config.
-4. Implement the two \`source === "sanity"\` branches in \`lib/content.ts\` using the
-   queries below. Nothing else in the codebase changes.
+1. Create a project at sanity.io with a \`production\` dataset and a read-only
+   (Viewer) API token.
+2. Copy \`.env.example\` to \`.env.local\` and fill \`NEXT_PUBLIC_SANITY_PROJECT_ID\`
+   and \`SANITY_API_READ_TOKEN\`. Set \`CONTENT_SOURCE=sanity\` only once the
+   dataset has content; the client throws a descriptive error if a variable is
+   missing.
+3. When a Studio exists, register \`schemas/transaction.ts\` and
+   \`schemas/insight.ts\` in its config. The Studio package is not installed
+   here; \`schemas/types.ts\` stands in for its \`Rule\` type.
 
 ## Queries
 
@@ -19,8 +25,12 @@ when the dataset is created.
     }\`;
 
     export const INSIGHTS_QUERY = \`*[_type == "insight" && !hidden] | order(publishedAt desc)[0...3]{
-      "slug": slug.current, category, title, number, "year": string(year)
+      "slug": slug.current, category, title, number, "year": string(year), publishedAt,
+      "body": coalesce(body[]{"text": pt::text(@)}.text, [])
     }\`;
+
+\`INSIGHT_BY_SLUG_QUERY\` uses the same projection filtered by
+\`slug.current == $slug\` and returns a single document or null.
 
 ## Editorial rules the schema enforces
 

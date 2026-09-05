@@ -1,6 +1,7 @@
 /**
- * Minimal stand-in so the schema files typecheck before next-sanity is
- * installed. Delete this file and import from "sanity" once it is.
+ * Minimal stand-in for the Studio's validation `Rule` type. The Studio package
+ * (`sanity`) is deliberately not installed and `@sanity/client` does not
+ * re-export it (spec 006, H2), so this keeps the schema files typechecking.
  */
 export type Rule = {
   required: () => Rule;
