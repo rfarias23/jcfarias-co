@@ -17,6 +17,7 @@ espaciado de las páginas de insight pertenece a una spec futura (014) que se ab
 el dueño entregue el diseño.
 
 Entra:
+
 - `lib/types.ts`: extender `Insight` con `publishedAt: string` (ISO), `dek?: string` (una línea de resumen para metadata `description`) y `body: string[]` (párrafos de texto plano; el bloque Portable Text de Sanity se mapea a párrafos en 006; el modelo definitivo lo fija la spec de diseño).
 - `content/local.ts`: añadir a las 3 notas `publishedAt`, `dek: ""` y `body: []`. **No se inventa texto.** Vacío hasta que 011 lo cargue.
 - `lib/content.ts`: `getInsight(slug): Promise<Insight | null>` con rama `local` (busca en el array) y rama `sanity` que lanza hasta 006.
@@ -26,6 +27,7 @@ Entra:
 - Tests (Vitest): `getInsight` devuelve la nota por slug y `null` para desconocido; `generateStaticParams` devuelve los 3 slugs; `content/local.test.ts` gana un test de que cada insight tiene `publishedAt` ISO válida.
 
 No entra:
+
 - Markup, estilos, tipografía o espaciado de las páginas más allá del placeholder descrito.
 - Cambiar `components/insights.tsx`.
 - Texto de las notas.

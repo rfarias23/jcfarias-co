@@ -29,6 +29,7 @@ Mixed-use development,"Lima, Perú","34,000 m²",Capital raise & structuring,202
 ```
 
 Reglas (las hace cumplir un test):
+
 - `asset`: clase de activo, nunca nombre de inmueble, proyecto ni contraparte.
 - `market`: `Ciudad, País` tal como debe verse.
 - `scale`: texto libre con unidad (`m²`, `keys`, `units`, `ha`, `assets`).
@@ -38,11 +39,11 @@ Reglas (las hace cumplir un test):
 
 ### Formato de entrega 2 — Fotografía
 
-| Uso | Archivo | Mínimo | Orientación | Además |
-| --- | --- | --- | --- | --- |
-| Hero | `hero.jpg` | 2560 × 1440 px | horizontal | Crédito si no es propia; si es propia, "© J.C. Farias & Co." o nada. Ubicación (ciudad) para la línea `meta` bajo la placa. |
-| Project A | `project-a.jpg` | 1600 × 2000 px | vertical o cuadrada | Alt de una línea (qué es, dónde). |
-| Project B | `project-b.jpg` | 1600 × 2000 px | vertical o cuadrada | Alt de una línea. Detalle arquitectónico: fachada, estructura, materialidad. |
+| Uso       | Archivo         | Mínimo         | Orientación         | Además                                                                                                                      |
+| --------- | --------------- | -------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Hero      | `hero.jpg`      | 2560 × 1440 px | horizontal          | Crédito si no es propia; si es propia, "© J.C. Farias & Co." o nada. Ubicación (ciudad) para la línea `meta` bajo la placa. |
+| Project A | `project-a.jpg` | 1600 × 2000 px | vertical o cuadrada | Alt de una línea (qué es, dónde).                                                                                           |
+| Project B | `project-b.jpg` | 1600 × 2000 px | vertical o cuadrada | Alt de una línea. Detalle arquitectónico: fachada, estructura, materialidad.                                                |
 
 Decisión requerida sobre Soumaya (D4): (a) se retira y se sustituye por `hero.jpg`; (b) pasa a
 un project frame como referencia arquitectónica explícita, con su crédito CC BY-SA

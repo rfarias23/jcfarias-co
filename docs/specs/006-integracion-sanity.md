@@ -15,6 +15,7 @@ componente cambie.
 Respeta 000. Autoriza `next-sanity` como única dependencia de runtime adicional (C4).
 
 Entra:
+
 - Crear `sanity/queries.ts` exportando `TRANSACTIONS_QUERY`, `INSIGHTS_QUERY` (las del README de sanity, literales) y `INSIGHT_BY_SLUG_QUERY` (para 010: `*[_type == "insight" && slug.current == $slug && !hidden][0]{…}`), cerrando D4.
 - Crear `lib/sanity-client.ts` con cliente `next-sanity` en **inicialización perezosa** (una función `getClient()` que crea el cliente la primera vez; nunca en el nivel de módulo, para que `next build` no falle sin variables de entorno).
 - Implementar en `lib/content.ts` las ramas `sanity` de `getTransactions()`, `getInsights()` y `getInsight(slug)` (esta última creada por 010) con `client.fetch(QUERY, params, { next: { revalidate: 300 } })`. Los tipos de retorno no cambian; el mapeo `year: number → string` lo hace la GROQ con `string(year)`, como ya está escrito.
@@ -23,6 +24,7 @@ Entra:
 - `.env.example` sin cambios (ya lista las variables).
 
 No entra:
+
 - Sanity Studio, `sanity.config.ts`, rutas `/studio`.
 - Cambios en componentes, tipos de `lib/types.ts` (010 los extiende) ni en `content/local.ts`.
 - Imágenes desde `cdn.sanity.io` (el `remotePatterns` ya existe; no se usa todavía).
@@ -35,7 +37,7 @@ No entra:
 4. DADO `CONTENT_SOURCE=local`, CUANDO se ejecuta `npx vitest run`, ENTONCES los tests de `content/local.test.ts` siguen pasando y `getTransactions()` devuelve las 6 filas locales.
 5. DADO `CONTENT_SOURCE=sanity` sin `NEXT_PUBLIC_SANITY_PROJECT_ID`, CUANDO se llama `getTransactions()` en un test, ENTONCES rechaza con un `Error` cuyo mensaje contiene `NEXT_PUBLIC_SANITY_PROJECT_ID`.
 6. DADO `git diff` de esta spec, CUANDO se listan los archivos, ENTONCES ningún archivo de `components/` ni `app/` aparece.
-7. *(bloqueado por dueño)* DADO un proyecto Sanity con al menos una transacción y un insight publicados y `.env.local` relleno, CUANDO se ejecuta `CONTENT_SOURCE=sanity npm run build && npm run start`, ENTONCES la home renderiza esas filas y `npm run audit:responsive` (003) da 27/27.
+7. _(bloqueado por dueño)_ DADO un proyecto Sanity con al menos una transacción y un insight publicados y `.env.local` relleno, CUANDO se ejecuta `CONTENT_SOURCE=sanity npm run build && npm run start`, ENTONCES la home renderiza esas filas y `npm run audit:responsive` (003) da 27/27.
 8. DADO `sanity/queries.ts`, CUANDO se compara con `sanity/README.md`, ENTONCES `TRANSACTIONS_QUERY` e `INSIGHTS_QUERY` son idénticas carácter a carácter.
 
 ## Verificación

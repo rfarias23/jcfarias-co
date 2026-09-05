@@ -40,12 +40,12 @@ revisa contra él antes de aprobar cualquier spec.
 - `dependencies` en `package.json`: **solo** `next`, `react`, `react-dom`. Nada más, nunca.
 - `devDependencies` solo si una spec aprobada las autoriza por nombre. Registro de autorizaciones (se actualiza al aprobar cada spec):
 
-| Paquete(s) | Autorizado por |
-| --- | --- |
-| `typescript`, `@types/node`, `@types/react`, `@types/react-dom`, `tailwindcss`, `@tailwindcss/postcss` | Base del proyecto (README) |
-| `eslint`, `eslint-config-next`, `eslint-config-prettier`, `@eslint/eslintrc`, `prettier` | 002 |
-| `vitest`, `@vitejs/plugin-react`, `vite-tsconfig-paths`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom` | 002 |
-| `next-sanity` (dependencia de runtime, única excepción a la línea anterior) | 006 |
+| Paquete(s)                                                                                                              | Autorizado por             |
+| ----------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `typescript`, `@types/node`, `@types/react`, `@types/react-dom`, `tailwindcss`, `@tailwindcss/postcss`                  | Base del proyecto (README) |
+| `eslint`, `eslint-config-next`, `eslint-config-prettier`, `@eslint/eslintrc`, `prettier`                                | 002                        |
+| `vitest`, `@vitejs/plugin-react`, `vite-tsconfig-paths`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom` | 002                        |
+| `next-sanity` (dependencia de runtime, única excepción a la línea anterior)                                             | 006                        |
 
 - Cambiar la versión de `next`, `react` o `react-dom` es un cambio de dependencia y requiere spec.
 

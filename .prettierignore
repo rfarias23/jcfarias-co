@@ -4,3 +4,5 @@ build
 node_modules
 next-env.d.ts
 package-lock.json
+docs/HANDOVER-2026-09-03.md
+.superpowers

@@ -15,6 +15,7 @@ en LinkedIn o WhatsApp muestra una tarjeta vacía y los buscadores no tienen map
 Respeta 000.
 
 Entra:
+
 - `app/sitemap.ts`: `/` con `lastModified` = fecha de build; más las rutas de 010 **solo cuando 010 esté verificada y sus páginas dejen de ser `noindex`** (hasta entonces, solo `/`).
 - `app/robots.ts`: `allow: /`, `sitemap: ${site.url}/sitemap.xml`. Sin `disallow` salvo que 010 lo pida para sus placeholders.
 - `app/opengraph-image.tsx` (1200×630, `ImageResponse`): fondo `#0E0E0E`, wordmark `J.C. FARIAS & CO.` en Newsreader 300 sobre `#FFFFFF`, tracking uppercase como el header, y una línea `eyebrow` con `site.tagline` en Instrument Sans 500 gris `#8A8A8A`. Fuentes cargadas desde archivos `.ttf/.woff` committeados en `lib/og/fonts/` (Newsreader 300 y Instrument Sans 500, licencia OFL) leídos con `node:fs/promises`; **no** se hace fetch a Google en build. La imagen no usa colores fuera de la paleta.
@@ -23,6 +24,7 @@ Entra:
 - Metadata por página: solo `/` existe hoy; las rutas de 010 definen la suya en su spec.
 
 No entra:
+
 - JSON-LD / datos estructurados (se propondrá como spec aparte si el dueño lo quiere).
 - Cambios de copy visible en la página.
 - Analytics, verificación de Search Console.

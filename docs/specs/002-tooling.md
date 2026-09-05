@@ -1,6 +1,6 @@
 # 002 — Tooling: ESLint, Prettier y Vitest
 
-Estado: aprobada
+Estado: verificada
 Depende de: [000, 001]
 Bloqueada por dueño: no
 
@@ -16,6 +16,7 @@ fiables para todas las specs siguientes.
 Respeta 000.
 
 Entra:
+
 - Autorizar como devDependencies (registro C4 de 000): `eslint`, `eslint-config-next`, `eslint-config-prettier`, `@eslint/eslintrc`, `prettier`, `vitest`, `@vitejs/plugin-react`, `vite-tsconfig-paths`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom`. Todas ya están en `package.json`; no se añade ninguna otra.
 - Corregir el formato de `vitest.setup.ts` con Prettier (una línea; sin cambio semántico).
 - Añadir `docs/HANDOVER-2026-09-03.md` y `.superpowers/` a `.prettierignore` (son documentos históricos; no se reformatean).
@@ -23,6 +24,7 @@ Entra:
 - Los archivos del harness (`vitest.config.mts`, `vitest.setup.ts`, `content/local.test.ts`, cambios en `tsconfig.json` y `package.json`) se committean bajo esta spec.
 
 No entra:
+
 - Nuevas reglas de ESLint, nuevos tests, cambios en `eslint.config.mjs` o `.prettierrc`.
 - CI (012).
 
@@ -58,4 +60,17 @@ Sin viewports.
 
 ## Hallazgos
 
-(vacío)
+- 2026-09-05 — `format:check` fallaba en 17 archivos de `docs/` (STATUS, PLAN, specs) escritos en Fase 1/2 sin pasar por Prettier. No estaban en "Archivos afectados". Decisión tomada: formatearlos con `prettier --write` (solo espaciado y alineación de tablas Markdown; sin cambio de contenido) porque son documentos de esta misma auditoría, no código ni copy. Alternativa descartada: ignorar `docs/` en Prettier, que dejaría los specs futuros sin puerta de formato. Si el dueño prefiere lo contrario, se revierte en un commit propio.
+
+## Evidencia de verificación (2026-09-05)
+
+```
+$ npm run lint                                   exit=0 (sin salida)
+$ npx eslint --debug | grep -c "Linting code for"  28
+$ npm run format:check                           All matched files use Prettier code style!  exit=0
+$ npx vitest run                                 Test Files 1 passed (1) · Tests 2 passed (2)  exit=0
+$ dependencies                                   [ 'next', 'react', 'react-dom' ]
+$ vitest.setup.ts                                único cambio: mock de next/image en una línea
+```
+
+Criterios 1–7: PASAN.

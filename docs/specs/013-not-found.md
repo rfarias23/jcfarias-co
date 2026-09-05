@@ -14,6 +14,7 @@ blanco, Geist, sin header ni footer), fuera del sistema visual del sitio.
 Respeta 000.
 
 Entra:
+
 - `app/not-found.tsx`: server component que compone `SiteHeader`, un `<main>` con `<Shell>` y `ContactFooter`. Usa exclusivamente primitivas y clases ya existentes: `Eyebrow` con "404", `<h1>` con las mismas clases que el `h2` de About (`font-serif text-[clamp(30px,4.2vw,56px)] font-light leading-[1.1] tracking-[-0.022em]`), un párrafo con las clases del párrafo de About, y un enlace a `/` con las clases del botón "Contact" del header. Padding `sectionPad`.
 - Copy propuesto (a aprobar por el dueño; no se implementa otro):
   - Eyebrow: `404`
@@ -23,6 +24,7 @@ Entra:
 - `metadata`: `title: "Not found"`, `robots: noindex`.
 
 No entra:
+
 - Nuevos estilos, nuevas clases, nuevos tokens.
 - Ilustraciones, imágenes.
 - Cambios en `SiteHeader` o `ContactFooter`.

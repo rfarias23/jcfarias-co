@@ -15,6 +15,7 @@ cosas está medida. Objetivo: LCP < 2.5 s y CLS < 0.05 en Lighthouse móvil y de
 Respeta 000.
 
 Entra:
+
 - Medición de línea base con Lighthouse (Chrome instalado, `npx lighthouse` sin añadirlo al proyecto) contra `npm run start`, móvil y desktop, 3 corridas cada uno, mediana.
 - Hero: mantener `priority` y `sizes="100vw"` (ya presentes). Añadir `placeholder="blur"` importando la imagen estáticamente (`import hero from "@/public/images/soumaya-hero.jpg"`) para que Next genere `blurDataURL` en build. Mismo `alt`, mismo `object-cover`, mismo contenedor.
 - Reducir el **archivo de origen** `soumaya-hero.jpg` a ≤ 2560 px de ancho y ≤ 600 KB con calidad 82, sin recorte ni cambio de encuadre. Es una optimización del asset, no un cambio de diseño; `next/image` sigue generando los tamaños. Si el dueño prefiere no tocar el archivo, este punto se elimina y se anota.
@@ -23,6 +24,7 @@ Entra:
 - Registrar los resultados en `docs/STATUS.md`.
 
 No entra:
+
 - Cambiar alturas del hero, breakpoints, `sizes` de otras imágenes ni el orden de secciones.
 - Lazy-load de secciones, code splitting manual, service workers.
 - CDN o cabeceras de caché (las pone Vercel; 009).

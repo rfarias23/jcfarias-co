@@ -15,11 +15,13 @@ sin uso y el README describe un estado del repo que ya no es cierto.
 Respeta 000.
 
 Entra:
+
 1. **Fuentes (D3).** En `app/layout.tsx`, restringir `Newsreader` a `weight: ["300"]`, `style: ["normal"]` y `Instrument Sans` a `weight: ["400", "500"]`. Resultado: el CSS servido declara solo esos pesos y ninguna `font-style: italic`; el render no cambia porque ya usaba exactamente esos pesos.
 2. **Token sin uso (D8).** Eliminar `--breakpoint-xs: 26rem` de `@theme` en `app/globals.css`. Ningún componente usa `xs:`.
 3. **README (D2, D9, D4).** Reemplazar la sección "First push" por el estado real (repo existente, remote HTTPS, flujo de commit por spec); completar "Structure" con `eslint.config.mjs`, `.prettierrc`, `vitest.*`, `content/local.test.ts`, `docs/`, `scripts/`; corregir "GROQ queries are already written in `sanity/`" a "documented in `sanity/README.md`" hasta que 006 cree el módulo. Solo texto de documentación, no copy del sitio.
 
 No entra:
+
 - `logo-primario.png` sin uso (D7): se decide en 007.
 - Cualquier cambio de escala, color, espaciado o copy visible.
 - El tipo `Insight` (D10): 010.

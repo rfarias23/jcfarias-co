@@ -16,11 +16,13 @@ prueba de no regresión.
 Respeta 000.
 
 Entra:
+
 - Un script `scripts/responsive-audit.mjs` que carga la home en 390×844, 834×1112 y 1440×900 con Chrome headless, mide las 9 filas de la tabla con `getComputedStyle`, comprueba touch targets, `prefers-reduced-motion`, crédito CC BY-SA y ausencia de scroll horizontal de página, e imprime CUMPLE / NO CUMPLE por celda con el valor medido. Es el script usado en la auditoría, sin cambios de lógica.
 - Opción A (recomendada): `playwright-core` como devDependency (autorizada por esta spec; no descarga navegadores, usa el Chrome instalado). Opción B: el script vive en `docs/tools/` y se ejecuta desde un directorio externo con `playwright-core` instalado ahí. El dueño elige al aprobar.
 - Script `npm run audit:responsive`.
 
 No entra:
+
 - Ningún cambio en componentes ni estilos. Si el script marcara NO CUMPLE en el futuro, la corrección va en una spec propia.
 - Capturas en el repo.
 
