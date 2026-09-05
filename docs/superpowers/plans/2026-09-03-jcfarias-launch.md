@@ -37,13 +37,13 @@ Every task's requirements implicitly include this section. Values are copied ver
 
 These block specific tasks. Everything not listed here proceeds on the assumptions stated in-task.
 
-| #   | Decision                                                                                                    | Blocks  | Default if unanswered                                                                               |
-| --- | ----------------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------- |
-| D1  | Is `jcfarias.co` registered and pointable?                                                                  | Task 12 | Ship on the `*.vercel.app` URL and set `site.url` to it; re-point later.                            |
-| D2  | The real mandate record — which six-to-ten rows are true and publishable?                                   | Task 10 | Cannot default. Task 10 stops here.                                                                 |
-| D3  | Are the stats (18 · 4 · 40+ · USD 1.2B) verified?                                                           | Task 10 | Cannot default. Task 10 stops here.                                                                 |
-| D4  | Owned hero photography, or move Museo Soumaya to the project frames as an explicit architectural reference? | Task 10 | Move it to the project frames with its CC BY-SA credit intact, and render the hero without a plate. |
-| D5  | Repo is currently **public**. Keep it public?                                                               | Task 1  | Keep public. The placeholder rows are commented `PENDING`, and nothing secret is committed.         |
+| #      | Decision                                                                                                    | Blocks      | Default if unanswered                                                                                                                                                        |
+| ------ | ----------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ~~D1~~ | ~~Is the domain registered and pointable?~~                                                                 | ~~Task 12~~ | **ANSWERED 2026-09-03 — registered at GoDaddy.** Task 12 Step 8 carries GoDaddy-specific DNS steps. Confirm the exact registered domain matches `site.url` before deploying. |
+| D2     | The real mandate record — which six-to-ten rows are true and publishable?                                   | Task 10     | **STILL OPEN — owner says "coming later."** Cannot default. Task 10 Step 2 stops here; the rest of Task 10 proceeds.                                                         |
+| ~~D3~~ | ~~Are the stats (18 · 4 · 40+ · USD 1.2B) verified?~~                                                       | ~~Task 10~~ | **ANSWERED 2026-09-03 — verified by the owner.** Task 10 Step 4 is a recorded confirmation, not a gate.                                                                      |
+| D4     | Owned hero photography, or move Museo Soumaya to the project frames as an explicit architectural reference? | Task 10     | Move it to the project frames with its CC BY-SA credit intact, and render the hero without a plate.                                                                          |
+| D5     | Repo is currently **public**. Keep it public?                                                               | Task 1      | Keep public. The placeholder rows are commented `PENDING`, and nothing secret is committed.                                                                                  |
 
 ---
 
@@ -1788,7 +1788,11 @@ git push
 
 This is the task that decides whether the site can go public. Everything before it is engineering; this is verification. Four things on the page are currently marked `PENDING` in source comments or flagged in the README, and each is a claim the firm would be making in public.
 
-**This task requires decisions D2, D3 and D4.** Do not substitute plausible-sounding figures for missing ones. If a decision has not been made, stop, report which one, and leave the placeholder with its `PENDING` comment intact — an honest placeholder in staging is recoverable, a fabricated transaction record in production is not.
+**Status as of 2026-09-03:** D3 (stats) is answered — verified. D1 (domain) is answered — registered at GoDaddy. **D2 (the transaction record) is still open**; the owner says it is coming later.
+
+Do not substitute plausible-sounding figures for missing ones. Step 2 is blocked until D2 lands: leave the six representative rows and their `PENDING` comment intact, and report the task as partially complete. Every other step here can proceed. An honest placeholder in staging is recoverable; a fabricated transaction record in production is not.
+
+**Task 12 must not run to production while Step 2 is outstanding** — the record is the page's central credibility artefact.
 
 **Files:**
 
@@ -1810,7 +1814,7 @@ grep -rn "PENDING" content/ components/ lib/ app/
 
 Expected today: `content/local.ts` (transaction record), `components/hero-image.tsx` (Museo Soumaya), `components/project-pair.tsx` (project frames). Each hit must end this task either resolved or consciously kept.
 
-- [ ] **Step 2: Replace the transaction record (D2)**
+- [ ] **Step 2: Replace the transaction record (D2) — BLOCKED, owner-supplied**
 
 Six rows currently stand in `content/local.ts`. Replace them with the real mandate history, newest first, honouring the editorial rule from `sanity/README.md`: **a row never names a counterparty**, and `asset` is a class ("Mixed-use development"), never a property name. `scale` is free text so it can carry m², keys, units or hectares. `role` should come from the list already enumerated in `sanity/schemas/transaction.ts:33-40` — extend that list rather than inventing a one-off label.
 
@@ -1834,13 +1838,13 @@ it("describes an asset class, not a named property", async () => {
 
 The second test is a tripwire, not a proof — it catches the specific mistake of pasting a property name into the asset column. Read every row yourself as well.
 
-- [ ] **Step 4: Verify the stats (D3)**
+- [ ] **Step 4: Record the stats as verified (D3 — answered)**
 
-`content/site.ts` claims **18** years in the corridor, **4** markets covered directly, **40+** mandates advised, **USD 1.2B** aggregate transaction value. Confirm each against the underlying record and correct or remove any that cannot be supported. A stat block with three defensible figures is stronger than one with four where one is contested.
+`content/site.ts:38-43` claims **18** years in the corridor, **4** markets covered directly, **40+** mandates advised, **USD 1.2B** aggregate transaction value. **The owner confirmed all four as verified on 2026-09-03.** No value changes — leave the array exactly as it stands. This step is a recorded confirmation, not an edit.
 
 Note the coupling: "4 markets covered directly" must equal `offices.length`. If offices change, the stat changes.
 
-The same README item flags the contact numbers. `content/site.ts:45-50` currently publishes only dialling codes and the words "by appointment" (`"+51 · by appointment"`), and `site.email` is `mandates@jcfarias.co`. Confirm that mailbox exists and is monitored before launch — the footer's `mailto:` is the site's only intake path, so a bounced address is a silent loss of every inbound mandate. Decide deliberately whether the dialling-code-only treatment stays; publishing full numbers is a reachability decision, not a dev one.
+The same README item flags the contact numbers. `content/site.ts:45-50` currently publishes only dialling codes and the words "by appointment" (`"+51 · by appointment"`), and `site.email` is `mandates@jcfarias.com`. Confirm that mailbox exists and is monitored before launch — the footer's `mailto:` is the site's only intake path, so a bounced address is a silent loss of every inbound mandate. Decide deliberately whether the dialling-code-only treatment stays; publishing full numbers is a reachability decision, not a dev one.
 
 - [ ] **Step 5: Resolve the hero photography (D4)**
 
@@ -2047,9 +2051,19 @@ git push && gh run watch
 
 Expected: `success`. Do not deploy off a red build.
 
-- [ ] **Step 2: Settle the production URL (D1)**
+- [ ] **Step 2: Confirm the production URL (D1 — answered: registered at GoDaddy)**
 
-`content/site.ts` sets `url: "https://jcfarias.co"`, and `metadataBase`, the canonicals, the sitemap and the JSON-LD all derive from it. If that domain is not registered and pointable today, set it to the Vercel URL now and change it in one place later — a sitemap advertising a domain that does not resolve is worse than one advertising a `.vercel.app`.
+`content/site.ts:3-8` sets `url: "https://jcfarias.com"`, and `metadataBase`, every canonical, the sitemap and the JSON-LD all derive from that one string. The domain is registered at GoDaddy.
+
+**Confirm the registered domain is character-for-character `jcfarias.com`** before anything else — a `.com` instead of a `.co`, or a hyphenated variant, silently poisons every canonical and the whole sitemap.
+
+```bash
+grep -n 'url:' content/site.ts
+dig +short jcfarias.com
+dig +short www.jcfarias.com
+```
+
+If the registered domain differs, change `site.url` — that one line is the only place it appears. If `dig` returns GoDaddy parking IPs at this point, that is expected; Step 8 replaces them.
 
 - [ ] **Step 3: Link the project to Vercel**
 
@@ -2099,9 +2113,40 @@ Expected: `200`, `200`, `200`, `404`, then a robots body naming the sitemap and 
 
 Paste the production URL into a LinkedIn post composer (do not post) and into a WhatsApp draft. The card should show the ink-ground Newsreader treatment from Task 9. If it shows nothing, `metadataBase` does not match the deployed origin — that is D1 unresolved, not a bug in the image route.
 
-- [ ] **Step 8: Attach the domain (D1)**
+- [ ] **Step 8: Attach the domain at GoDaddy (D1 — answered)**
 
-In the Vercel dashboard → Domains, add `jcfarias.co` and `www.jcfarias.co`, set `www` to redirect to the apex, and follow the DNS records Vercel prints. Then confirm `content/site.ts` matches the live apex and redeploy if it changed.
+In the Vercel dashboard → Project → Settings → Domains, add `jcfarias.com` and `www.jcfarias.com`, and set `www` to redirect to the apex. Vercel then prints the exact records to create. **Vercel's printed values are authoritative — if they differ from anything below, follow Vercel.**
+
+Then, in GoDaddy → My Products → the domain → DNS → Manage Zones. Two GoDaddy-specific traps make this different from most registrars:
+
+1. **GoDaddy does not support CNAME/ALIAS/ANAME at the apex.** The naked domain must be an **A record**, not a CNAME. Vercel's apex A record is `76.76.21.21`.
+2. **A newly-registered GoDaddy domain ships with parking records that conflict.** There is already an `A` record on `@` pointing at a GoDaddy parking IP, and often a `CNAME` on `www` pointing to `@`, plus a "Forwarding" rule. **Edit the existing `@` A record rather than adding a second one** — two A records on `@` will round-robin between Vercel and the parking page, which presents as a site that works only half the time. Delete any Domain Forwarding rule in the Forwarding section; it overrides DNS entirely.
+
+The end state in GoDaddy's zone:
+
+| Type  | Name  | Value                  | TTL                     |
+| ----- | ----- | ---------------------- | ----------------------- |
+| A     | `@`   | `76.76.21.21`          | 600 (GoDaddy's minimum) |
+| CNAME | `www` | `cname.vercel-dns.com` | 600                     |
+
+Leave GoDaddy's `NS` and `SOA` records alone, and leave any `MX` records alone — removing those kills email on the domain.
+
+_Alternative, if you would rather Vercel own DNS entirely:_ change the nameservers at GoDaddy to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`. This is cleaner long-term but takes any existing MX/TXT records with it, so only do it if nothing else uses this domain yet.
+
+- [ ] **Step 8b: Wait for propagation and verify**
+
+GoDaddy's minimum TTL is 600s, but a fresh delegation can take longer to settle.
+
+```bash
+dig +short jcfarias.com          # expect 76.76.21.21
+dig +short www.jcfarias.com      # expect a cname.vercel-dns.com chain
+curl -sI https://jcfarias.com | head -3
+curl -sI https://www.jcfarias.com | head -5   # expect a 30x redirect to the apex
+```
+
+Vercel's Domains panel should show both domains as **Valid Configuration** and issue the TLS certificate automatically. A certificate that stays pending for more than ~15 minutes almost always means a leftover second `A` record on `@`, or a `CAA` record that does not permit Let's Encrypt — check both before retrying.
+
+Then confirm `content/site.ts` matches the live apex and redeploy if it changed.
 
 - [ ] **Step 9: Update the README**
 

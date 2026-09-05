@@ -3,8 +3,8 @@ import type { Office, PracticeArea, Stat } from "@/lib/types";
 export const site = {
   name: "J.C. Farias & Co.",
   tagline: "Real Estate · Partnerships · Value Creation",
-  email: "mandates@jcfarias.co",
-  url: "https://jcfarias.co",
+  email: "mandates@jcfarias.com",
+  url: "https://jcfarias.com",
 };
 
 export const navLinks = [
