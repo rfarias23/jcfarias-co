@@ -1,6 +1,6 @@
 # 006 — Integración Sanity
 
-Estado: verificada (criterios 1–6 y 8 con evidencia; 7 bloqueado por contenido, ver Hallazgos H5)
+Estado: verificada (8/8; el criterio 7 se cerró con 015 el 2026-09-05)
 Depende de: [000, 001, 002, 010]
 Bloqueada por dueño: parcial (para verificar en vivo se necesitan `NEXT_PUBLIC_SANITY_PROJECT_ID`, dataset y token de lectura de un proyecto Sanity creado por el dueño; la rama `local` y la compilación se verifican sin ellos)
 

@@ -323,4 +323,6 @@ Stats (18 · 4 · 40+ · USD 1.2B): **no bloqueado**, ya verificado por el dueñ
 
 | 2026-09-05 | 015 | (este commit) | `lib/sanity-sync.ts` (ids deterministas, Portable Text, `hidden:false`, plan espejo) con 19 tests; `scripts/sanity-sync.mts` + `npm run content:sync` (solo escribe con `--apply`, una transacción); `dek` en esquema y consultas. tsc/lint/prettier/build limpios; 35/35. Plan en seco contra `7sbvxr17`: 9 create. Escritura y cierre de 006-c7 esperan `SANITY_API_WRITE_TOKEN`. **implementada** |
 
+| 2026-09-05 | 015 + 006-c7 | (este commit) | Con token Editor: dry run 9 create; `--apply` → 9 docs; segundo `--apply` → 0 create · 9 replace · 0 delete (idempotente). Hallazgo: la fetch-cache de Next sirvió `[]` caducado en la build `sanity` (stale-while-revalidate); tras `rm -rf .next/cache/fetch-cache` la home renderiza 6 filas + 3 insights, 3 slugs SSG, 404 OK, 27/27. Orden intra-año invertido (limitación declarada). 006 y 015 **verificadas**. |
+
 Pendiente del dueño (no bloqueante): `sudo chown -R 501:20 ~/.npm` para eliminar el workaround `--cache`.

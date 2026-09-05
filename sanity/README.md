@@ -40,6 +40,10 @@ paragraphs as Portable Text blocks, and every `transaction`/`insight` document t
 not in the file gets deleted. Without `--apply` it only prints the plan. It needs
 `SANITY_API_WRITE_TOKEN` (Editor) in `.env.local`; that token must never reach Vercel.
 
+After a sync, clear Next's persisted fetch cache before building with
+`CONTENT_SOURCE=sanity` (`rm -rf .next/cache/fetch-cache`): a stale entry from an
+earlier build is served as-is during `next build` and only revalidated afterwards.
+
 ## Editorial rules the schema enforces
 
 - Transactions never name a counterparty. \`assetClass\` is a class, not a property name.

@@ -1,6 +1,6 @@
 # 015 — Sincronización de contenido a Sanity por API
 
-Estado: implementada (criterios 1–7 y 10 verificados el 2026-09-05; 8 y 9 esperan `SANITY_API_WRITE_TOKEN`)
+Estado: verificada (10/10 criterios con evidencia, 2026-09-05)
 Depende de: [000, 002, 006]
 Bloqueada por dueño: parcial (los criterios 8 y 9 necesitan `SANITY_API_WRITE_TOKEN`, un token con permiso Editor creado por el dueño en el panel de Sanity; todo lo demás se verifica sin él)
 
@@ -129,6 +129,7 @@ npx prettier --check .
 CONTENT_SOURCE=local npm run build; echo "exit=$?"
 git diff --name-only HEAD~1 | grep -E "^(components|app)/|^lib/(content|types)\.ts$" | wc -l   # esperado 0
 # criterios 8 y 9, solo con token de escritura:
+rm -rf .next/cache/fetch-cache               # H5: sin esto la build puede servir la respuesta anterior
 npm run content:sync                       # plan, no escribe
 npm run content:sync -- --apply
 npm run content:sync -- --apply            # idempotencia
@@ -155,7 +156,10 @@ Viewports: 390/834/1440 solo en el criterio 9.
 - **H1 — `tsconfig.json` fuera de la lista.** Node ejecuta el script sin bundler y exige extensiones explícitas (`../content/local.ts`); `tsc` solo las admite con `allowImportingTsExtensions: true`, que es legal porque `noEmit` ya está activo. Un solo flag, sin efecto en el build de Next (verificado: 13/13 páginas).
 - **H2 — Las advertencias de Node se silencian en el comando.** `--disable-warning=ExperimentalWarning` y `--disable-warning=MODULE_TYPELESS_PACKAGE_JSON` en `content:sync`, para que la salida sea el plan y nada más. Se retiran cuando Node estabilice `strip-types`.
 - **H3 — El genérico de `createOrReplace` se fija en la llamada.** Con la unión `SyncDocument`, TypeScript infería el primer miembro; `createOrReplace<Record<string, unknown>>(doc)` resuelve sin `any` ni cast.
-- **H4 — Plan verificado en seco con el token de lectura.** Exportando el token Viewer como `SANITY_API_WRITE_TOKEN` solo en la línea de comandos, `npm run content:sync` sin `--apply` imprimió `9 create · 0 replace · 0 delete` con los 9 ids esperados y `exit 0`; sin ese token, `exit 2` nombrando `SANITY_API_WRITE_TOKEN`. La escritura (criterios 8 y 9) sigue esperando el token Editor.
+- **H4 — Plan verificado en seco con el token de lectura (antes del token Editor).** Exportando el token Viewer como `SANITY_API_WRITE_TOKEN` solo en la línea de comandos, `npm run content:sync` sin `--apply` imprimió `9 create · 0 replace · 0 delete` con los 9 ids esperados y `exit 0`; sin ese token, `exit 2` nombrando `SANITY_API_WRITE_TOKEN`. La escritura (criterios 8 y 9) sigue esperando el token Editor.
+
+- **H5 — La caché de fetch de Next sirve datos caducados durante `next build`.** `.next/cache/fetch-cache` persiste entre builds. La build en modo `sanity` de las 10:01 (dataset vacío) guardó `[]` para `TRANSACTIONS_QUERY` con `revalidate: 300`. La build de las 10:49, tras el `--apply`, encontró esa entrada caducada, **renderizó la home con `[]`** y revalidó en segundo plano sobreescribiendo el archivo con las 6 filas (mtime 10:49:32), así que la caché parecía correcta y el HTML no. Los insights sí salieron porque `dek` cambió la consulta y por tanto la clave de caché. Comprobado: `rm -rf .next/cache/fetch-cache` + rebuild → 6 filas. Consecuencias: (a) la verificación de cualquier build en modo `sanity` debe vaciar antes esa carpeta (añadido a la sección de verificación y a `sanity/README.md`); (b) en producción el riesgo está acotado: con ISR la página se refresca a los 5 minutos de la primera petición; (c) 009 debe tenerlo en cuenta si Vercel reutiliza `.next/cache` entre deploys.
+- **H6 — La limitación intra-año se materializó.** Al crear los 9 documentos en una sola transacción, `_createdAt` es idéntico y Sanity devolvió 2023 y 2022 en orden inverso al de `local.ts` (Franchise market entry antes que Retail portfolio; Logistics park antes que Land assembly). Textos idénticos, orden distinto dentro del mismo año. Sigue fuera de alcance; se decidirá con 011.
 
 ## Evidencia (2026-09-05)
 
