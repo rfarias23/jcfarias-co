@@ -132,6 +132,11 @@ on purpose — it is not editorial content and should not be CMS-editable.
 
 ## Deploy
 
+[![ci](https://github.com/rfarias23/jcfarias-co/actions/workflows/ci.yml/badge.svg)](https://github.com/rfarias23/jcfarias-co/actions/workflows/ci.yml)
+
+Every push to `main` and every pull request runs `.github/workflows/ci.yml`:
+typecheck, lint, format check, tests and build on a clean Ubuntu checkout.
+
 Vercel, framework preset Next.js, no build config needed. Add
 `CONTENT_SOURCE=local` as an env var until the CMS is live.
 
