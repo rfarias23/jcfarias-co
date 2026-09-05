@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   description:
     "An advisory firm for institutional and private capital across the Andes and the Caribbean. We originate, structure and steward the transactions that global platforms cannot reach locally.",
   metadataBase: new URL(site.url),
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: site.name,
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
     title: site.name,
     description: "Real estate, partnerships and advisory across the Andes and the Caribbean.",
   },
+  twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
 };
 

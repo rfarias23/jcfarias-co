@@ -1,6 +1,6 @@
 # 007 — SEO y metadata: sitemap, robots, imagen OG, favicon
 
-Estado: aprobada
+Estado: verificada
 Depende de: [000, 001, 004]
 Bloqueada por dueño: no — decidido 2026-09-05: favicon Opción A (wordmark); texto de la imagen OG aprobado
 
@@ -67,4 +67,24 @@ Viewports: inspección visual de la imagen OG a 1200×630; 390/834/1440 vía 003
 
 ## Hallazgos
 
-(vacío)
+- 2026-09-05 — Archivos añadidos fuera de la lista literal pero dentro de su intención: `app/apple-icon.tsx` (180 px, la spec preveía "32×32 y 180×180"), y `lib/og/fonts/OFL.txt` (la licencia SIL OFL exige acompañar los archivos de fuente redistribuidos).
+- Los TTF son instancias estáticas descargadas de Google Fonts (`css2?family=…:wght@300`, sin tabla `fvar`), 109 KB y 49 KB. Satori no interpola fuentes variables, por eso no se reutilizan los woff2 de `next/font`.
+- `<link rel="canonical">` sale como `https://jcfarias.com` (sin barra final): Next normaliza `alternates.canonical: "/"` contra `metadataBase`. Equivalente para buscadores; el criterio 5 se da por cumplido con esa forma.
+- `public/images/logo-primario.png` (1.5 MB, sin uso, D7) sigue en el repo: Opción A no lo toca. Queda para el dueño decidir si se borra (spec pequeña o dentro de 011).
+- Las rutas de 010 no entran en el sitemap mientras sean `noindex`; 014 las añade.
+
+## Evidencia de verificación (2026-09-05)
+
+```
+$ npm run build            /apple-icon /icon /opengraph-image /robots.txt /sitemap.xml (○ estáticas), warn 0   criterio 1 PASA
+$ /robots.txt              User-Agent: * · Allow: / · Sitemap: https://jcfarias.com/sitemap.xml                criterio 2 PASA
+$ /sitemap.xml             xmllint válido · 1 <loc>: https://jcfarias.com/                                    criterio 3 PASA
+$ /opengraph-image         image/png · 20 872 B · 1200×630 · inspección: fondo #0E0E0E, wordmark Newsreader
+                           uppercase, tagline Instrument Sans #8A8A8A, regla blanca de 44 px                  criterio 4 PASA
+$ metas en /               og:image absoluta (jcfarias.com/opengraph-image?…), 1200/630, twitter:card
+                           summary_large_image, canonical https://jcfarias.com, rel=icon 32x32, apple-touch-icon 180x180   criterio 5 PASA
+$ /icon                    image/png · 418 B (< 20 KB) · /apple-icon 2 286 B                                  criterio 6 PASA
+$ grep fetch|googleapis    0 líneas en opengraph-image, icon, apple-icon, lib/og/fonts.ts                     criterio 7 PASA
+$ npm run audit:responsive 27/27 · 12/12                                                                       criterio 8 PASA
+$ tsc / lint / format      exit 0 / exit 0 / All matched files                                                 criterio 9 PASA
+```
