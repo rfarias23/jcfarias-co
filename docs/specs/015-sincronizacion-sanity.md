@@ -1,6 +1,6 @@
 # 015 — Sincronización de contenido a Sanity por API
 
-Estado: borrador (diseño aprobado en chat por el dueño el 2026-09-05; pendiente de su lectura de este documento)
+Estado: implementada (criterios 1–7 y 10 verificados el 2026-09-05; 8 y 9 esperan `SANITY_API_WRITE_TOKEN`)
 Depende de: [000, 002, 006]
 Bloqueada por dueño: parcial (los criterios 8 y 9 necesitan `SANITY_API_WRITE_TOKEN`, un token con permiso Editor creado por el dueño en el panel de Sanity; todo lo demás se verifica sin él)
 
@@ -148,7 +148,22 @@ Viewports: 390/834/1440 solo en el criterio 9.
 - `sanity/queries.ts`, `sanity/README.md` (`dek` en las dos consultas de insight; sección "Loading content")
 - `docs/specs/006-integracion-sanity.md` (evidencia del criterio 7 al cerrar el 9 de esta spec)
 - `docs/specs/README.md`, `docs/PLAN.md`, `docs/STATUS.md §9`
+- `tsconfig.json` (`allowImportingTsExtensions`, ver H1)
 
 ## Hallazgos
 
-(vacío)
+- **H1 — `tsconfig.json` fuera de la lista.** Node ejecuta el script sin bundler y exige extensiones explícitas (`../content/local.ts`); `tsc` solo las admite con `allowImportingTsExtensions: true`, que es legal porque `noEmit` ya está activo. Un solo flag, sin efecto en el build de Next (verificado: 13/13 páginas).
+- **H2 — Las advertencias de Node se silencian en el comando.** `--disable-warning=ExperimentalWarning` y `--disable-warning=MODULE_TYPELESS_PACKAGE_JSON` en `content:sync`, para que la salida sea el plan y nada más. Se retiran cuando Node estabilice `strip-types`.
+- **H3 — El genérico de `createOrReplace` se fija en la llamada.** Con la unión `SyncDocument`, TypeScript infería el primer miembro; `createOrReplace<Record<string, unknown>>(doc)` resuelve sin `any` ni cast.
+- **H4 — Plan verificado en seco con el token de lectura.** Exportando el token Viewer como `SANITY_API_WRITE_TOKEN` solo en la línea de comandos, `npm run content:sync` sin `--apply` imprimió `9 create · 0 replace · 0 delete` con los 9 ids esperados y `exit 0`; sin ese token, `exit 2` nombrando `SANITY_API_WRITE_TOKEN`. La escritura (criterios 8 y 9) sigue esperando el token Editor.
+
+## Evidencia (2026-09-05)
+
+| Criterio | Resultado                                                                                             |
+| -------- | ----------------------------------------------------------------------------------------------------- |
+| 1–5      | `lib/sanity-sync.test.ts`: 19 tests, todos verdes (suite completa 35/35)                              |
+| 6        | Test de identidad con README pasa; `INSIGHTS_QUERY` e `INSIGHT_BY_SLUG_QUERY` proyectan `dek`         |
+| 7        | `tsc` exit 0; `eslint` limpio (incluye `scripts/sanity-sync.mts`); prettier limpio; build local 13/13 |
+| 8        | Parcial (H4): plan en seco correcto; escritura pendiente de token                                     |
+| 9        | Pendiente de 8                                                                                        |
+| 10       | 0 archivos de `components/`, `app/`, `lib/content.ts`, `lib/types.ts`; `.env.local` ignorado          |

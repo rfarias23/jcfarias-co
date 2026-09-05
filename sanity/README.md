@@ -25,12 +25,20 @@ queries below live in \`queries.ts\` and are the contract with the dataset.
     }\`;
 
     export const INSIGHTS_QUERY = \`*[_type == "insight" && !hidden] | order(publishedAt desc)[0...3]{
-      "slug": slug.current, category, title, number, "year": string(year), publishedAt,
+      "slug": slug.current, category, title, number, "year": string(year), publishedAt, dek,
       "body": coalesce(body[]{"text": pt::text(@)}.text, [])
     }\`;
 
 \`INSIGHT_BY_SLUG_QUERY\` uses the same projection filtered by
 \`slug.current == $slug\` and returns a single document or null.
+
+## Loading content
+
+There is no Studio. `npm run content:sync` mirrors `content/local.ts` into the dataset
+(spec 015): deterministic ids (`transaction-<hash>`, `insight-<slug>`), `hidden: false`,
+paragraphs as Portable Text blocks, and every `transaction`/`insight` document that is
+not in the file gets deleted. Without `--apply` it only prints the plan. It needs
+`SANITY_API_WRITE_TOKEN` (Editor) in `.env.local`; that token must never reach Vercel.
 
 ## Editorial rules the schema enforces
 

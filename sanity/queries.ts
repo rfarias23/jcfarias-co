@@ -8,11 +8,11 @@ export const TRANSACTIONS_QUERY = `*[_type == "transaction"] | order(year desc, 
 }`;
 
 export const INSIGHTS_QUERY = `*[_type == "insight" && !hidden] | order(publishedAt desc)[0...3]{
-  "slug": slug.current, category, title, number, "year": string(year), publishedAt,
+  "slug": slug.current, category, title, number, "year": string(year), publishedAt, dek,
   "body": coalesce(body[]{"text": pt::text(@)}.text, [])
 }`;
 
 export const INSIGHT_BY_SLUG_QUERY = `*[_type == "insight" && slug.current == $slug && !hidden][0]{
-  "slug": slug.current, category, title, number, "year": string(year), publishedAt,
+  "slug": slug.current, category, title, number, "year": string(year), publishedAt, dek,
   "body": coalesce(body[]{"text": pt::text(@)}.text, [])
 }`;

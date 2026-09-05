@@ -25,6 +25,13 @@ export const insight = {
       type: "string",
       description: "Shown on the card, e.g. Note 03",
     },
+    {
+      name: "dek",
+      title: "Dek",
+      type: "string",
+      description: "One line, ≤ 160 characters, for metadata",
+      validation: (rule: Rule) => rule.max(160),
+    },
     { name: "year", title: "Year", type: "number" },
     { name: "publishedAt", title: "Published at", type: "datetime" },
     { name: "hidden", title: "Hide from site", type: "boolean", initialValue: false },

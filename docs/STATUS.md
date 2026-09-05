@@ -321,4 +321,6 @@ Stats (18 · 4 · 40+ · USD 1.2B): **no bloqueado**, ya verificado por el dueñ
 
 | 2026-09-05 | 006 | (este commit) | `next-sanity` no instalable (peers `sanity`+`styled-components`, React 19.2.2); dueño aprobó `@sanity/client` (H1). `sanity/queries.ts`, `lib/sanity-client.ts` perezoso, tres ramas `sanity` en `lib/content.ts`; `CONTENT_SOURCE` leído por llamada. 13/13 tests en ambos modos; tsc/lint/prettier limpios; build sin `.env.local` OK. Con credenciales reales (`7sbvxr17`): consultas OK, dataset vacío, build `sanity` OK. Criterio 7 espera contenido. **verificada** |
 
+| 2026-09-05 | 015 | (este commit) | `lib/sanity-sync.ts` (ids deterministas, Portable Text, `hidden:false`, plan espejo) con 19 tests; `scripts/sanity-sync.mts` + `npm run content:sync` (solo escribe con `--apply`, una transacción); `dek` en esquema y consultas. tsc/lint/prettier/build limpios; 35/35. Plan en seco contra `7sbvxr17`: 9 create. Escritura y cierre de 006-c7 esperan `SANITY_API_WRITE_TOKEN`. **implementada** |
+
 Pendiente del dueño (no bloqueante): `sudo chown -R 501:20 ~/.npm` para eliminar el workaround `--cache`.

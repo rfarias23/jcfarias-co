@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "test": "vitest",
     "test:run": "vitest run",
-    "audit:responsive": "node scripts/responsive-audit.mjs"
+    "audit:responsive": "node scripts/responsive-audit.mjs",
+    "content:sync": "node --env-file=.env.local --experimental-strip-types --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/sanity-sync.mts"
   },
   "dependencies": {
     "@sanity/client": "8.5.0",

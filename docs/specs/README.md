@@ -21,6 +21,6 @@ Ciclo de estados: `borrador` → `aprobada` (solo el dueño) → `implementada` 
 | [011](011-contenido-real.md)           | Contenido real                     | borrador (bloqueada por dueño)           |
 | [012](012-ci.md)                       | CI GitHub Actions                  | verificada                               |
 | [013](013-not-found.md)                | Página 404                         | verificada                               |
-| [015](015-sincronizacion-sanity.md)    | Sincronización a Sanity por API    | borrador (espera token de escritura)     |
+| [015](015-sincronizacion-sanity.md)    | Sincronización a Sanity por API    | implementada (8–9 esperan token Editor)  |
 
 Orden de ejecución y sesiones: [`../PLAN.md`](../PLAN.md). Línea base: [`../STATUS.md`](../STATUS.md).
