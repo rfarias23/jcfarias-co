@@ -1,6 +1,6 @@
 # 009 — Deploy en Vercel
 
-Estado: implementada (criterios 1–4 y 8 verificados el 2026-09-05; 5–7 bloqueados hasta 011)
+Estado: implementada (criterios 1–6 verificados el 2026-09-05; 7 pendiente de comprobación manual del dueño; 8 no cumple por decisión del dueño, ver H6)
 Depende de: [000, 001, 002, 005, 007, 012]
 Bloqueada por dueño: sí (acceso a la cuenta Vercel y a la zona DNS de GoDaddy de `jcfarias.com`; **producción bloqueada hasta que 011 cargue el historial real de transacciones**)
 
@@ -65,6 +65,10 @@ Viewports: 390/834/1440 vía 003 contra la URL de preview.
 - **H3 — `jcfarias-co.vercel.app` es el deploy de Production de Vercel, sin dominio propio.** Contiene los placeholders `PENDING` de `content/local.ts`. La barra de la spec ("no se promueve a producción **con el dominio**") se respeta: no hay dominio enlazado. Criterio 8 se verifica hoy sobre ese deploy como negativo esperado (`PENDING` presente) y se re-verificará con dominio tras 011.
 - **H4 — El asistente de importación no ofrece Development.** Las variables se crearon para Production y Preview; `CONTENT_SOURCE` en Development se añadió a mano en Settings → Environments → Development (tipo `Config`).
 - **H5 — `Sanity` apareció como integración opcional al crear el proyecto.** No se añadió: sobrescribiría las variables y trae Studio/token propios. La conexión es la manual de 006.
+
+- **H6 — El dueño conectó el dominio antes de 011.** La barra de producción ("no se promueve a producción con el dominio mientras `local.ts` tenga las filas `PENDING`") fue advertida explícitamente y el dueño decidió conectar `jcfarias.com` el 2026-09-05 con los placeholders. El criterio 8 queda en rojo a sabiendas hasta que 011 cargue las transacciones reales; entonces se re-verifica sin más cambios de infraestructura.
+- **H7 — GoDaddy disfraza las IP del constructor web.** El registro `A @` etiquetado "WebsiteBuilder Site" resolvía a `13.248.243.5` y `76.223.105.230`, que Vercel listaba como conflictivas. No aparecen como IP en el panel de GoDaddy; se identificaron con `dig`. El dueño borró esa fila y quedó solo `A @ 216.198.79.1`.
+- **H8 — Vercel recomienda `216.198.79.1` en lugar de `76.76.21.21`.** La spec preveía la IP antigua y ya decía que prevalece la que imprima Vercel. `www` se resolvió con el `CNAME www → jcfarias.com.` preexistente en GoDaddy, sin `cname.vercel-dns.com`; Vercel lo validó. Los registros de Microsoft 365 (`MX`, SPF, DMARC, DKIM, `autodiscover`, `sip`, `lyncdiscover`, `msoid`, `SRV`) no se tocaron.
 
 ## Evidencia (2026-09-05)
 

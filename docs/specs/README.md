@@ -16,7 +16,7 @@ Ciclo de estados: `borrador` → `aprobada` (solo el dueño) → `implementada` 
 | [006](006-integracion-sanity.md)       | Integración Sanity                 | verificada                               |
 | [007](007-seo-metadata.md)             | SEO y metadata                     | verificada                               |
 | [008](008-performance.md)              | Performance                        | verificada                               |
-| [009](009-deploy-vercel.md)            | Deploy Vercel                      | implementada (1–4; dominio tras 011)     |
+| [009](009-deploy-vercel.md)            | Deploy Vercel                      | implementada (1–6; c8 tras 011)          |
 | [010](010-rutas-insights.md)           | Rutas insights (estructura)        | verificada                               |
 | [011](011-contenido-real.md)           | Contenido real                     | parcial (fotos hechas; datos pendientes) |
 | [012](012-ci.md)                       | CI GitHub Actions                  | verificada                               |

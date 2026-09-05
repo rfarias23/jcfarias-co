@@ -329,4 +329,6 @@ Stats (18 · 4 · 40+ · USD 1.2B): **no bloqueado**, ya verificado por el dueñ
 
 | 2026-09-05 | 011 (entrega 2) | (este commit) | Fotografía: Soumaya se queda (D4); `project-a.jpg` (muelles, horizontal, recorte aceptado) y `project-b.jpg` (retícula, cuadrada), iStock con licencia; retrato propio sustituye al logotipo JCF LIM en About. Frames con `src`/`alt`; 27/27 + 12/12; tsc/lint/tests limpios. Transacciones, teléfonos y cuerpos siguen pendientes. **parcial** |
 
+| 2026-09-05 | 009 (5–6) | (este commit) | Dueño conectó `jcfarias.com` antes de 011 (barra advertida, H6). GoDaddy: `A @ 216.198.79.1` único (borrada la fila "WebsiteBuilder Site" que escondía 2 IP), `CNAME www → jcfarias.com.`; Microsoft 365 intacto. `www` → 308 → apex; TLS Let's Encrypt en ambos; 27/27 sobre el dominio. Criterio 7 manual pendiente; criterio 8 en rojo hasta 011. |
+
 Pendiente del dueño (no bloqueante): `sudo chown -R 501:20 ~/.npm` para eliminar el workaround `--cache`.
