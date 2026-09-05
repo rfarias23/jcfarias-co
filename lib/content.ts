@@ -37,3 +37,10 @@ export async function getInsights(): Promise<Insight[]> {
   }
   return localInsights;
 }
+
+export async function getInsight(slug: string): Promise<Insight | null> {
+  if (source === "sanity") {
+    throw new Error("Sanity insight source not wired yet — see /sanity/README.md");
+  }
+  return localInsights.find((note) => note.slug === slug) ?? null;
+}

@@ -17,7 +17,7 @@ Ciclo de estados: `borrador` → `aprobada` (solo el dueño) → `implementada` 
 | [007](007-seo-metadata.md)             | SEO y metadata                     | aprobada                                |
 | [008](008-performance.md)              | Performance                        | aprobada                                |
 | [009](009-deploy-vercel.md)            | Deploy Vercel                      | borrador (espera acceso Vercel/GoDaddy) |
-| [010](010-rutas-insights.md)           | Rutas insights (estructura)        | aprobada                                |
+| [010](010-rutas-insights.md)           | Rutas insights (estructura)        | verificada                              |
 | [011](011-contenido-real.md)           | Contenido real                     | borrador (bloqueada por dueño)          |
 | [012](012-ci.md)                       | CI GitHub Actions                  | verificada                              |
 | [013](013-not-found.md)                | Página 404                         | aprobada                                |

@@ -56,6 +56,9 @@ export const insights: Insight[] = [
     title: "The five-year window for keys in Puerto Rico and the DR",
     number: "Note 03",
     year: "2026",
+    publishedAt: "2026",
+    dek: "",
+    body: [],
   },
   {
     slug: "franchise-expansion-lima-quito",
@@ -63,6 +66,9 @@ export const insights: Insight[] = [
     title: "Why franchise expansion fails in Lima and Quito",
     number: "Note 02",
     year: "2026",
+    publishedAt: "2026",
+    dek: "",
+    body: [],
   },
   {
     slug: "pricing-land-dollarized-economy",
@@ -70,5 +76,8 @@ export const insights: Insight[] = [
     title: "Pricing land in a dollarized economy",
     number: "Note 01",
     year: "2025",
+    publishedAt: "2025",
+    dek: "",
+    body: [],
   },
 ];

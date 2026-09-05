@@ -1,6 +1,6 @@
 # 010 — Rutas `/insights` e `/insights/[slug]`: estructura, datos y metadata
 
-Estado: aprobada
+Estado: verificada
 Depende de: [000, 001, 002]
 Bloqueada por dueño: sí, parcialmente — **el markup de ambas páginas está BLOQUEADO hasta que exista un diseño aprobado** (B5). Esta spec autoriza solo rutas, tipos, data fetching y metadata. Los cuerpos de las notas (B6) son contenido del dueño.
 
@@ -74,4 +74,25 @@ Viewports: ninguno para las páginas nuevas (no hay diseño que verificar); 390/
 
 ## Hallazgos
 
-(vacío)
+- 2026-09-05 — **`publishedAt` sin inventar fechas.** Las notas solo tienen `year`. Para no fabricar un día y un mes, `publishedAt` se cargó como el año en ISO 8601 (`"2026"`, `"2025"`), que es una fecha ISO válida y `Date.parse` la acepta. El test comprueba además que `publishedAt.slice(0,4) === year`. Las fechas exactas llegan con el formato 5 de 011.
+- 2026-09-05 — **Descripción del sitio duplicada.** La spec pedía usar "la descripción de `site` en `layout.tsx`", pero ese texto es un literal dentro de `layout.tsx`, no un campo de `content/site.ts`, y ninguno de los dos archivos está en la lista de esta spec. Importar `app/layout` desde una página arrastra `next/font/google` a los tests. Se copió el literal en `app/insights/page.tsx` y `app/insights/[slug]/page.tsx`. **Pregunta al dueño:** ¿autoriza una spec pequeña que mueva la descripción a `content/site.ts` (`site.description`) y la use en `layout.tsx` y en ambas páginas? Hasta entonces, cualquier cambio de esa frase debe hacerse en tres sitios.
+- 2026-09-05 — Criterio 8 (sitemap sigue con solo `/`) no aplica todavía: `app/sitemap.ts` lo crea 007, que en PLAN.md va después. 007 hereda la obligación de excluir las rutas `noindex`.
+- El `<h1>` del placeholder de `[slug]` no lleva clases de tipografía (solo `m-0 mt-4`): con el preflight de Tailwind hereda el cuerpo. Es deliberado: la spec prohíbe diseñar aquí.
+- `components/insights.tsx` sigue enlazando a `#insights` (criterio 6). El cambio de `href` queda para 014.
+
+## Evidencia de verificación (2026-09-05)
+
+```
+$ npm run build                        ○ /insights 127 B · ● /insights/[slug] (SSG) con 3 rutas · warn count 0    criterio 1 PASA
+$ curl (start)                         /insights 200 · 3 slugs 200 · /insights/no-existe 404                       criterio 2 PASA
+$ <title>/<meta robots>                "The five-year window for keys in Puerto Rico and the DR · J.C. Farias & Co."
+                                       <meta name="robots" content="noindex, nofollow">                            criterio 3 PASA
+$ npx vitest run                       content/local.test.ts 4 · lib/content.test.ts 3 → 7 passed                 criterio 4 PASA
+$ grep -rn '"use client"'              components/site-header.tsx:1 (única)                                       criterio 5 PASA
+$ git status                           lib/types.ts, lib/content.ts, lib/content.test.ts, content/local.ts,
+                                       content/local.test.ts, app/insights/ — ningún components/                  criterio 6 PASA
+$ grep -c 'body: \[\]' content/local.ts   3                                                                        criterio 7 PASA
+$ /sitemap.xml                         404 (no existe aún; 007)                                                    criterio 8 N/A
+$ npm run audit:responsive             27/27 celdas · 12/12 checks                                                 criterio 9 PASA
+$ tsc / lint / format:check            exit 0 / exit 0 / All matched files
+```

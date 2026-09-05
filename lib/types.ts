@@ -15,6 +15,12 @@ export type Insight = {
   /** Display label, e.g. "Note 03". */
   number: string;
   year: string;
+  /** ISO 8601 date (year-only until the owner supplies exact dates). Sorts the notes. */
+  publishedAt: string;
+  /** One-line summary for metadata description. Empty until supplied. */
+  dek?: string;
+  /** Plain-text paragraphs. Empty until the owner supplies the note (spec 011). */
+  body: string[];
 };
 
 export type Office = {
