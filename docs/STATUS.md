@@ -327,4 +327,6 @@ Stats (18 · 4 · 40+ · USD 1.2B): **no bloqueado**, ya verificado por el dueñ
 
 | 2026-09-05 | 009 (1–4, 8) | (este commit) | Proyecto Vercel `rodolfo15/jcfarias-co` (Hobby) enlazado a `main`; `https://jcfarias-co.vercel.app` 200, rutas 007 200/404 OK, 27/27 + 12/12. PR #2 desechable: check Vercel pass, preview 200 tras apagar Deployment Protection (H1), 27/27; cerrado sin mezclar. `CONTENT_SOURCE=local` en los 3 entornos. Dominio y producción esperan 011. **implementada** |
 
+| 2026-09-05 | 011 (entrega 2) | (este commit) | Fotografía: Soumaya se queda (D4); `project-a.jpg` (muelles, horizontal, recorte aceptado) y `project-b.jpg` (retícula, cuadrada), iStock con licencia; retrato propio sustituye al logotipo JCF LIM en About. Frames con `src`/`alt`; 27/27 + 12/12; tsc/lint/tests limpios. Transacciones, teléfonos y cuerpos siguen pendientes. **parcial** |
+
 Pendiente del dueño (no bloqueante): `sudo chown -R 501:20 ~/.npm` para eliminar el workaround `--cache`.

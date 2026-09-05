@@ -3,19 +3,22 @@ import { Shell, sectionPad } from "@/components/primitives";
 
 type Frame = {
   id: string;
-  src?: string;
-  alt?: string;
-  placeholder: string;
+  src: string;
+  alt: string;
 };
 
-/**
- * PENDING: both frames await owned project photography. Until a src is set the
- * frame renders as a stone plate with its brief, which is honest in staging and
- * disappears the moment the asset lands.
- */
+/** Licensed stock photography supplied by the owner (spec 011, delivery 2). */
 const frames: Frame[] = [
-  { id: "project-a", placeholder: "Project — vertical or square" },
-  { id: "project-b", placeholder: "Architectural detail — facade, structure, materiality" },
+  {
+    id: "project-a",
+    src: "/images/project-a.jpg",
+    alt: "Loading docks of a logistics facility under a clear sky",
+  },
+  {
+    id: "project-b",
+    src: "/images/project-b.jpg",
+    alt: "Precast concrete facade grid in raking light",
+  },
 ];
 
 export function ProjectPair() {
@@ -27,17 +30,13 @@ export function ProjectPair() {
             key={frame.id}
             className="relative h-[46vh] min-h-[300px] bg-stone md:h-[60vh] md:min-h-[440px]"
           >
-            {frame.src ? (
-              <Image
-                src={frame.src}
-                alt={frame.alt ?? ""}
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-            ) : (
-              <p className="meta absolute inset-x-6 bottom-6 m-0 text-faint">{frame.placeholder}</p>
-            )}
+            <Image
+              src={frame.src}
+              alt={frame.alt}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
         ))}
       </div>

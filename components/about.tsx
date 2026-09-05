@@ -7,7 +7,7 @@ export function About() {
       <div className="grid items-start gap-[clamp(36px,6vw,96px)] border-t border-rule pt-14 lg:grid-cols-2 lg:pt-16">
         <div className="relative aspect-4/5 w-full max-w-[420px] bg-stone lg:max-w-none">
           <Image
-            src="/images/perfil-jcf.png"
+            src="/images/perfil-jcf.jpg"
             alt="Juan Carlos Farias"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
