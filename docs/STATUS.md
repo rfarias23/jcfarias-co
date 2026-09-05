@@ -325,4 +325,6 @@ Stats (18 · 4 · 40+ · USD 1.2B): **no bloqueado**, ya verificado por el dueñ
 
 | 2026-09-05 | 015 + 006-c7 | (este commit) | Con token Editor: dry run 9 create; `--apply` → 9 docs; segundo `--apply` → 0 create · 9 replace · 0 delete (idempotente). Hallazgo: la fetch-cache de Next sirvió `[]` caducado en la build `sanity` (stale-while-revalidate); tras `rm -rf .next/cache/fetch-cache` la home renderiza 6 filas + 3 insights, 3 slugs SSG, 404 OK, 27/27. Orden intra-año invertido (limitación declarada). 006 y 015 **verificadas**. |
 
+| 2026-09-05 | 009 (1–4, 8) | (este commit) | Proyecto Vercel `rodolfo15/jcfarias-co` (Hobby) enlazado a `main`; `https://jcfarias-co.vercel.app` 200, rutas 007 200/404 OK, 27/27 + 12/12. PR #2 desechable: check Vercel pass, preview 200 tras apagar Deployment Protection (H1), 27/27; cerrado sin mezclar. `CONTENT_SOURCE=local` en los 3 entornos. Dominio y producción esperan 011. **implementada** |
+
 Pendiente del dueño (no bloqueante): `sudo chown -R 501:20 ~/.npm` para eliminar el workaround `--cache`.
