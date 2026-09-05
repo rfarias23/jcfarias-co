@@ -1,6 +1,6 @@
 # 001 — Build limpio
 
-Estado: aprobada
+Estado: verificada
 Depende de: [000]
 Bloqueada por dueño: no — resuelto 2026-09-05: proyecto movido a `~/dev/JCFarias` (B1); upgrade de `next` autorizado (B9), objetivo 15.5.25
 
@@ -56,4 +56,20 @@ Viewports: 390, 834, 1440 (solo si se aplica el criterio 4).
 
 ## Hallazgos
 
-(vacío)
+- 2026-09-05 — Orden dentro de la Sesión 1 invertido a 005-A → 002 → 001 → 005-B. Motivo: `package.json` tenía hunks sin commit de 002 (devDependencies de Vitest); committear 001 primero los habría arrastrado. No cambia el resultado de ninguna spec.
+- 2026-09-05 — `~/.npm/_cacache` contiene archivos root-owned (`EACCES` en `npm ci`). Se usó `--cache ~/.npm-jcfarias` para todos los comandos npm de esta sesión. Corrección permanente pendiente del dueño: `sudo chown -R 501:20 ~/.npm`.
+- `npm ci` sigue avisando `eslint@9.39.5: This version is no longer supported`. No es vulnerabilidad; fuera del alcance de 001 (002 podría subirlo en una revisión).
+
+## Evidencia de verificación (2026-09-05, `~/dev/JCFarias`)
+
+```
+$ find node_modules -type f -flags +dataless | head -1     (vacío)                     criterio 1 PASA
+$ time npx tsc --noEmit                                     1.92 s, exit 0, sin salida   criterio 2 PASA
+$ npm run build                                             exit 0, "✓ Compiled successfully", warn count 0
+                                                            / 6.87 kB · First Load 109 kB   criterio 3 PASA
+$ npm ls next                                               next@15.5.25                   criterio 4 PASA
+$ npm ci | grep -c CVE-2025-66478                           0
+$ npm run start; curl -w "%{http_code}"                     200                            criterio 5 PASA
+$ audit responsivo (script de Fase 1, URL=localhost:3000)   40/40 CUMPLE (27 celdas + touch, crédito, reduced-motion)  criterio 6 PASA
+$ npm run lint (eslint-config-next 15.5.25)                 exit 0
+```

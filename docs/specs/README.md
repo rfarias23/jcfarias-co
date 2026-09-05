@@ -8,8 +8,8 @@ Ciclo de estados: `borrador` → `aprobada` (solo el dueño) → `implementada` 
 | Spec                                   | Título                             | Estado                                  |
 | -------------------------------------- | ---------------------------------- | --------------------------------------- |
 | [000](000-constitution.md)             | Constitución                       | aprobada                                |
-| [001](001-build-limpio.md)             | Build limpio                       | aprobada                                |
-| [002](002-tooling.md)                  | Tooling: ESLint, Prettier y Vitest | aprobada                                |
+| [001](001-build-limpio.md)             | Build limpio                       | verificada                              |
+| [002](002-tooling.md)                  | Tooling: ESLint, Prettier y Vitest | verificada                              |
 | [003](003-conformidad-responsiva.md)   | Conformidad responsiva             | aprobada                                |
 | [004](004-conformidad-constitucion.md) | Conformidad de constitución        | aprobada                                |
 | [005](005-git.md)                      | Git: regularizar y empujar         | aprobada                                |

@@ -299,3 +299,16 @@ Stats (18 · 4 · 40+ · USD 1.2B): **no bloqueado**, ya verificado por el dueñ
 - `tsc`, `next build`, `eslint` y `vitest` pasan limpios en un entorno sano. `prettier --check` falla en 3 archivos.
 - Lo que falta es lo que el README ya decía: contenido real, fotografía, rutas de insights, y además SEO (sitemap/robots/OG), favicon, 404, CI, deploy y la integración Sanity.
 - **El bloqueo número uno es el entorno**, no el código. Hasta resolver B1 la Fase 3 no puede verificar nada en sitio.
+
+---
+
+## 9. Fase 3 — bitácora de ejecución
+
+| Fecha      | Spec     | Commit        | Resultado                                                                                                              |
+| ---------- | -------- | ------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 2026-09-05 | Sesión 0 | —             | Proyecto movido a `~/dev/JCFarias`; `node_modules` reinstalado; 0 archivos dataless; `tsc` 1.8 s en sitio. B1 cerrado. |
+| 2026-09-05 | 005 (A)  | `5fb27a7`     | Trabajo heredado + documentos de auditoría committeados.                                                               |
+| 2026-09-05 | 002      | `2119d0e`     | Tooling autorizado; harness Vitest committeado; `format:check` verde. **verificada**                                   |
+| 2026-09-05 | 001      | (este commit) | `next` 15.5.2 → 15.5.25 (CVE-2025-66478 cerrado); tsc/build limpios; 40/40 en auditoría responsiva. **verificada**     |
+
+Pendiente del dueño (no bloqueante): `sudo chown -R 501:20 ~/.npm` para eliminar el workaround `--cache`.
