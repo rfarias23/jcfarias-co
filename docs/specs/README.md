@@ -19,7 +19,7 @@ Ciclo de estados: `borrador` → `aprobada` (solo el dueño) → `implementada` 
 | [009](009-deploy-vercel.md)            | Deploy Vercel                      | borrador (espera acceso Vercel/GoDaddy) |
 | [010](010-rutas-insights.md)           | Rutas insights (estructura)        | aprobada                                |
 | [011](011-contenido-real.md)           | Contenido real                     | borrador (bloqueada por dueño)          |
-| [012](012-ci.md)                       | CI GitHub Actions                  | aprobada                                |
+| [012](012-ci.md)                       | CI GitHub Actions                  | verificada                              |
 | [013](013-not-found.md)                | Página 404                         | aprobada                                |
 
 Orden de ejecución y sesiones: [`../PLAN.md`](../PLAN.md). Línea base: [`../STATUS.md`](../STATUS.md).
