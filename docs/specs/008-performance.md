@@ -1,6 +1,6 @@
 # 008 — Performance: LCP y CLS
 
-Estado: aprobada
+Estado: verificada
 Depende de: [000, 001, 003, 004]
 Bloqueada por dueño: no (si la foto del hero cambia por 011, la spec se re-verifica; no bloquea)
 
@@ -63,4 +63,30 @@ Viewports: Lighthouse móvil (360×640 emulado) y desktop (1350×940); 1440 para
 
 ## Hallazgos
 
-(vacío)
+- 2026-09-05 — **Causa raíz del LCP de 12 s en móvil: `package-lock.json` no tenía los binarios de plataforma de `sharp`** (solo `linux-ppc64`, `riscv64`, `s390x`, `wasm32`, `win32-ia32`; ni `darwin-arm64` ni `linux-x64`). Sin `sharp`, el optimizador de Next sirve el JPG original: la petición `/_next/image?…&w=750` devolvía 2 028 108 bytes. El mismo defecto habría afectado a Vercel y a CI (Linux x64). Origen probable: la sesión del 2026-09-03 instaló las devDependencies de Vitest con la red y la caché npm rotas por iCloud y npm resolvió parcialmente las dependencias opcionales.
+- **Desviación de alcance, pendiente de confirmación del dueño:** `package-lock.json` no está en "Archivos afectados". Se reparó con `npm update sharp` (sin tocar `package.json`; `sharp` 0.34.5 → 0.35.4 dentro del rango que declara `next`; se añaden 18 entradas `@img/*` y no cambia ninguna otra versión). Se verificó `npm ci` limpio con el lock nuevo. Si el dueño lo rechaza, se revierte ese archivo y el criterio 1 vuelve a fallar. Intentos descartados y documentados: regenerar el lock sin lockfile (npm reconstruyó desde `node_modules` y perdió 112 paquetes de plataforma; revertido) y `npm install` sobre el lock existente (no añade opcionales ausentes).
+- El JPG de origen a calidad 82 (mozjpeg) pesa 707 KB, por encima del tope de 600 KB del criterio 4. Se eligió la calidad más alta que cumple el tope: **q76, 591 743 bytes**, 2560×1708 px. Con `sharp` funcionando, el archivo de origen ya no llega al navegador (recibe variantes de 64–578 KB); el tope importa para el repo y para el fallback `w=3840`.
+- La comparación visual (captura del `<img>` a 1440) muestra el mismo encuadre: `object-cover` sobre un contenedor de la misma altura no cambia con la resolución de origen.
+- La mediana móvil (2 275 ms) queda a 225 ms del umbral; una de tres corridas dio 2 488 ms. En Vercel con CDN el TTFB y el "render delay" bajan, pero conviene repetir la medición en el preview de 009.
+- Herramienta: `lighthouse` 12.8.2 instalado en el scratchpad de la sesión (fuera del proyecto), Chrome local, `--headless=new`.
+
+## Evidencia de verificación (2026-09-05)
+
+```
+LÍNEA BASE (build de 013, antes de cambios)
+  móvil    LCP 12047 / 12014 / 12158 ms · CLS 0 · score 75   (imagen w=750 servida = 2 028 523 B, sin optimizar)
+  desktop  LCP   554 /  2058 /  2101 ms · CLS 0 · score 90–97
+
+DESPUÉS (lock reparado + import estático/blur + JPG 2560 px)
+  móvil    LCP 2488 / 2268 / 2275 ms · mediana 2275 < 2500 · CLS 0.000 · score 98/99/98        criterio 1 PASA
+  desktop  LCP  781 /  475 /  495 ms · mediana  495 < 2500 · CLS 0.000 · score 100             criterio 2 PASA
+  /_next/image w=750 → 64 500 B · w=1080 → 133 621 B · w=1920 → 362 044 B · w=3840 → 578 379 B
+$ <img> del hero              sizes="100vw" · background-image: url("data:image/svg+xml… feGaussianBlur") (blur)
+                              + <link rel="preload" as="image" imageSizes="100vw">                  criterio 3 PASA
+$ sips / stat                 2560 px de ancho · 591 743 bytes ≤ 614 400                          criterio 4 PASA
+$ captura <img> @1440         mismo encuadre que la captura de Fase 1                              criterio 5 PASA
+$ npm run audit:responsive    27/27 · 12/12                                                        criterio 6 PASA
+$ Lighthouse layout-shifts    0 elementos listados en móvil y desktop (ningún texto)               criterio 7 PASA
+$ npm run build               ✓ Compiled successfully · warn count 0                               criterio 8 PASA
+$ tsc / lint / format         ok / exit 0 / All matched files
+```

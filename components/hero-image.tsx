@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Shell } from "@/components/primitives";
+import hero from "@/public/images/soumaya-hero.jpg";
 
 /**
  * Full-bleed architectural plate. Height steps down on small screens so the
@@ -14,10 +15,11 @@ export function HeroImage() {
     <>
       <div className="relative mt-6 h-[54vh] min-h-[340px] w-full bg-stone md:h-[66vh] md:min-h-[460px] lg:h-[74vh] lg:min-h-[520px]">
         <Image
-          src="/images/soumaya-hero.jpg"
+          src={hero}
           alt="Museo Soumaya, Mexico City, designed by Fernando Romero"
           fill
           priority
+          placeholder="blur"
           sizes="100vw"
           className="object-cover"
         />
