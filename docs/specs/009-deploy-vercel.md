@@ -1,6 +1,6 @@
 # 009 — Deploy en Vercel
 
-Estado: implementada (criterios 1–6 verificados el 2026-09-05; 7 pendiente de comprobación manual del dueño; 8 no cumple por decisión del dueño, ver H6)
+Estado: implementada (criterios 1–7 verificados el 2026-09-05; 8 no cumple por decisión del dueño, ver H6)
 Depende de: [000, 001, 002, 005, 007, 012]
 Bloqueada por dueño: sí (acceso a la cuenta Vercel y a la zona DNS de GoDaddy de `jcfarias.com`; **producción bloqueada hasta que 011 cargue el historial real de transacciones**)
 
